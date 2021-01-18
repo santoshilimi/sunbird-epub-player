@@ -121,33 +121,33 @@
         }
       }
     },
-    "epub-player": {
+    "sunbird-epub-player": {
       "projectType": "library",
-      "root": "projects/epub-player",
-      "sourceRoot": "projects/epub-player/src",
+      "root": "projects/sunbird-epub-player",
+      "sourceRoot": "projects/sunbird-epub-player/src",
       "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/epub-player/tsconfig.lib.json",
-            "project": "projects/epub-player/ng-package.json"
+            "tsConfig": "projects/sunbird-epub-player/tsconfig.lib.json",
+            "project": "projects/sunbird-epub-player/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/epub-player/src/test.ts",
-            "tsConfig": "projects/epub-player/tsconfig.spec.json",
-            "karmaConfig": "projects/epub-player/karma.conf.js"
+            "main": "projects/sunbird-epub-player/src/test.ts",
+            "tsConfig": "projects/sunbird-epub-player/tsconfig.spec.json",
+            "karmaConfig": "projects/sunbird-epub-player/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/epub-player/tsconfig.lib.json",
-              "projects/epub-player/tsconfig.spec.json"
+              "projects/sunbird-epub-player/tsconfig.lib.json",
+              "projects/sunbird-epub-player/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

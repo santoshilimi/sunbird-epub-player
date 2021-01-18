@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "epub-player": [
-        "dist/epub-player"
+      "sunbird-epub-player": [
+        "dist/sunbird-epub-player"
       ],
-      "epub-player/*": [
-        "dist/epub-player/*"
+      "sunbird-epub-player/*": [
+        "dist/sunbird-epub-player/*"
       ]
     }
   },
