@@ -21,12 +21,20 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/@project-sunbird/sunbird-epub-player/lib/assets/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/epubjs/dist/epub.js"
+            ]
           },
           "configurations": {
             "production": {

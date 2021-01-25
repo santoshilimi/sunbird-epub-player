@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-library": "ng build sunbird-epub-player"
+    "build-library": "ng build sunbird-epub-player && node assets-copy.js"
   },
   "private": true,
   "dependencies": {
@@ -20,7 +20,9 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "epub-player": "file:dist/epub-player",
+    "@project-sunbird/sunbird-epub-player": "file:dist/sunbird-epub-player",
+    "@project-sunbird/sb-styles": "0.0.7",
+    "epubjs": "^0.3.88",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
