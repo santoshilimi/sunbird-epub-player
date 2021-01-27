@@ -33,7 +33,8 @@
               "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
             ],
             "scripts": [
-              "./node_modules/epubjs/dist/epub.js"
+              "./node_modules/epubjs/dist/epub.js",
+              "node_modules/@project-sunbird/telemetry-sdk/index.js"
             ]
           },
           "configurations": {

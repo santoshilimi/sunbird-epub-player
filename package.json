@@ -22,6 +22,7 @@
     "@angular/router": "~8.2.14",
     "@project-sunbird/sunbird-epub-player": "file:dist/sunbird-epub-player",
     "@project-sunbird/sb-styles": "0.0.7",
+    "@project-sunbird/telemetry-sdk": "0.0.26",
     "epubjs": "^0.3.88",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

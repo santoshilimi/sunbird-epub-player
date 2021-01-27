@@ -1,1 +1,2 @@
-<sunbird-epub-player [playerConfig]="epubPlayerConfig"></sunbird-epub-player>
+<sunbird-epub-player [playerConfig]="epubPlayerConfig" (playerEvent)="pdfEventHandler($event)"
+    (telemetryEvent)="telemetryEvent($event)"></sunbird-epub-player>
