@@ -117,8 +117,38 @@ export class ViwerService {
     this.playerEvent.emit(endEvent);
     const visitedlength = this.currentIndex;
     this.timeSpent = this.utilService.getTimeSpentText(this.epubPlayerStartTime);
-    console.log('time spent', this.timeSpent);
     this.epubPlayerService.end(duration,
       this.currentIndex, this.totalNumberOfPages, visitedlength, this.endPageSeen);
+  }
+
+
+  raiseErrorEvent(error: Error, type?: string) {
+    const errorEvent = {
+      eid: 'ERROR',
+      ver: this.version,
+      edata: {
+        type: type || 'ERROR',
+        stacktrace: error ? error.toString() : ''
+      },
+      metaData: this.metaData
+    };
+    this.playerEvent.emit(errorEvent);
+    if (!type) {
+    this.epubPlayerService.error(error);
+    }
+  }
+
+  raiseExceptionLog(errorCode: string , errorType: string , stacktrace , traceId ) {
+    const exceptionLogEvent = {
+      eid: "ERROR",
+      edata: {
+          err: errorCode,
+          errtype: errorType,
+          requestid: traceId || '',
+          stacktrace: stacktrace || '',
+      }
+    }
+    this.playerEvent.emit(exceptionLogEvent)
+    this.epubPlayerService.error(stacktrace, { err: errorCode, errtype: errorType });
   }
 }

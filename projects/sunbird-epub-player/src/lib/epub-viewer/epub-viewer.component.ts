@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild, Component, ElementRef, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, Output } from '@angular/core';
 import Epub from 'epubjs';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 
@@ -8,7 +8,7 @@ import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
   templateUrl: './epub-viewer.component.html',
   styleUrls: ['./epub-viewer.component.css']
 })
-export class EpubViewerComponent implements OnInit, AfterViewInit {
+export class EpubViewerComponent implements  AfterViewInit {
 
   eBook: any;
   rendition: any;
@@ -20,16 +20,10 @@ export class EpubViewerComponent implements OnInit, AfterViewInit {
   @Output() viewerEvent = new EventEmitter<any>();
 
 
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
   ngAfterViewInit() {
     this.eBook = Epub(this.epubSrc);
     this.eBook.open(this.epubSrc).then(async (res) => {
-      this.rendition = this.eBook.renderTo("area", {
+      this.rendition = this.eBook.renderTo("content", {
         method: "continuous", flow: "scrolled-continuous", width: "100%"
       });
       this.rendition.display();
@@ -42,7 +36,7 @@ export class EpubViewerComponent implements OnInit, AfterViewInit {
       .catch((err) => {
         this.viewerEvent.emit({
           type: fromConst.ERROR,
-          data: fromConst.UNABLE_TO_FETCH_URL_ONLINE
+          err: fromConst.UNABLE_TO_FETCH_URL_ONLINE
         })
       })
 

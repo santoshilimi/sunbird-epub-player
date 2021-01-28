@@ -53,6 +53,6 @@ export class AppComponent {
   }
 
   pdfEventHandler(event) {
-    // console.log('player event in app', JSON.stringify(event));
+    console.log('player event in app', JSON.stringify(event));
   }
 }
