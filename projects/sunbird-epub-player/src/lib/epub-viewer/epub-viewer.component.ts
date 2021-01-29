@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, Output, OnInit } from '@angular/core';
 import Epub from 'epubjs';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 
@@ -8,7 +8,7 @@ import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
   templateUrl: './epub-viewer.component.html',
   styleUrls: ['./epub-viewer.component.css']
 })
-export class EpubViewerComponent implements  AfterViewInit {
+export class EpubViewerComponent implements  OnInit , AfterViewInit {
 
   eBook: any;
   rendition: any;
@@ -21,7 +21,7 @@ export class EpubViewerComponent implements  AfterViewInit {
   @Output() viewerEvent = new EventEmitter<any>();
   idForRendition: any;
 
-  constructor(){
+  ngOnInit(){
     this.idForRendition =  `${this.identifier}-content`;
   }
 
