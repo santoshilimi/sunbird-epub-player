@@ -1,13 +1,13 @@
 <div *ngIf="viewState === fromConst.LOADING">
-    <sb-player-start-page [title]="viwerService.contentName" [progress]="99"></sb-player-start-page>
+    <sb-player-start-page [title]="viwerService.contentName" [progress]="progress"></sb-player-start-page>
 </div>
-<div *ngIf="viewState === fromConst.START">
-    <sb-player-header [config]="headerConfiguration" (actions)="headerActions($event)"></sb-player-header>
+<div [hidden]="viewState !== fromConst.START">
+    <sb-player-header [config]="headerConfiguration"  (actions)="headerActions($event)"></sb-player-header>
     <sb-player-side-menu-icon (sidebarMenuEvent)="sidebarMenuEvent($event)">
     </sb-player-side-menu-icon>
     <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
         [config]="playerConfig.config"></sb-player-sidebar>
-    <epub-viewer [actions]="headerActionsEvent" [epubSrc]="viwerService.src" (viewerEvent)="viewerEvent($event)">
+    <epub-viewer  [actions]="headerActionsEvent" [epubSrc]="viwerService.src" [identifier]="viwerService.identifier" (viewerEvent)="viewerEvent($event)">
     </epub-viewer>
 </div>
 <sb-player-end-page *ngIf="viewState === fromConst.END" [contentName]="viwerService.contentName"

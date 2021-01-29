@@ -23,6 +23,7 @@ export class ViwerService {
   public src: string;
   public userName: string;
   private metaData: any;
+  public identifier: any;
   constructor(
     private utilService: UtilService,
     private epubPlayerService: EpubPlayerService
@@ -33,6 +34,7 @@ export class ViwerService {
     this.totalNumberOfPages = 0;
     this.currentIndex = 0;
     this.contentName = metadata.name;
+    this.identifier = metadata.identifier;
     if (metadata.isAvailableLocally) {
       const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir)
       this.src = `${basePath}/${metadata.artifactUrl}`;

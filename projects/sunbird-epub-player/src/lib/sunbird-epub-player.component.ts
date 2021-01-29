@@ -19,7 +19,8 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
   @Output() playerEvent: EventEmitter<object>;
 
   viewState = this.fromConst.LOADING;
-  showEpubViewer = false;
+  intervalRef: any;
+  progress = 0;
   public traceId: string;
   headerConfiguration = {
     rotation: false,
@@ -43,6 +44,7 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.traceId = this.playerConfig.config['traceId'];
+    this.getEpubLoadingProgress();
     this.errorService.getInternetConnectivityError.subscribe(event => {
       this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, errorMessage.internetConnectivity, event['error'], this.traceId)
     });
@@ -57,7 +59,6 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
     }
     this.epubPlayerService.initialize(this.playerConfig);
     this.viwerService.initialize(this.playerConfig);
-    this.viewState = this.fromConst.START;
   }
 
   headerActions(event) {
@@ -65,7 +66,7 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.viewState = this.fromConst.START;
+    // this.viewState = this.fromConst.START;
   }
 
   viewerEvent(event) {
@@ -82,7 +83,8 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
   }
 
   onEpubLoaded(event) {
-    this.showEpubViewer = true;
+    clearInterval(this.intervalRef);
+    this.viewState = this.fromConst.START;
     this.viwerService.raiseStartEvent(event.data);
   }
 
@@ -105,6 +107,7 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
 
   replayContent(event) {
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
+    this.viewState = this.fromConst.START;
     this.ngOnInit();
   }
 
@@ -114,5 +117,13 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
 
   sidebarMenuEvent(event) {
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
+  }
+
+  getEpubLoadingProgress() {
+    this.intervalRef = setInterval(() => {
+      if (this.progress <= 99) {
+        this.progress = this.progress + 10;
+      }
+    })
   }
 }

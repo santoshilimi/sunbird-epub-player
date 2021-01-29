@@ -16,14 +16,19 @@ export class EpubViewerComponent implements  AfterViewInit {
   lastIndex: any;
   @ViewChild('epubViewer', { static: true }) epubViewer: ElementRef;
   @Input() epubSrc: string;
+  @Input() identifier: string;
   @Input() actions = new EventEmitter<any>();
   @Output() viewerEvent = new EventEmitter<any>();
+  idForRendition: any;
 
+  constructor(){
+    this.idForRendition =  `${this.identifier}-content`;
+  }
 
   ngAfterViewInit() {
     this.eBook = Epub(this.epubSrc);
     this.eBook.open(this.epubSrc).then(async (res) => {
-      this.rendition = this.eBook.renderTo("content", {
+      this.rendition = this.eBook.renderTo(this.idForRendition, {
         method: "continuous", flow: "scrolled-continuous", width: "100%"
       });
       this.rendition.display();
