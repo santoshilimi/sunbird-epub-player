@@ -52,16 +52,14 @@ export class ViwerService {
       zoom: [],
       rotation: []
     };
-    // this.loadingProgress = 0;
     this.showDownloadPopup = false;
     this.endPageSeen = false;
   }
 
   raiseStartEvent(event) {
-    this.currentIndex = event.items[0].index,
-      this.metaData.totalPages = event.items.length;
+    this.currentIndex = event.items[0].index;
+    this.metaData.totalPages = event.items.length;
     this.totalNumberOfPages = event.items.length;
-    console.warn(this.totalNumberOfPages);
     const duration = new Date().getTime() - this.epubPlayerStartTime;
     const startEvent = {
       eid: 'START',
@@ -79,7 +77,7 @@ export class ViwerService {
   }
 
   raiseHeartBeatEvent(event, teleType?) {
-    console.log(event);
+    console.log('event is', event , teleType);
     if (event.data) {
       this.currentIndex = event.data.index;
     }

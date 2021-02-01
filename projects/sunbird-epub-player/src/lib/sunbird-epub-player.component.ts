@@ -1,4 +1,4 @@
-import { EventEmitter, Component, Output, Input, OnInit, HostListener, AfterViewInit } from '@angular/core';
+import { EventEmitter, Component, Output, Input, OnInit, HostListener } from '@angular/core';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { PlayerConfig } from './sunbird-epub-player.interface';
 import { EpubPlayerService } from './sunbird-epub-player.service';
@@ -11,7 +11,7 @@ import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss']
 })
-export class EpubPlayerComponent implements OnInit, AfterViewInit {
+export class EpubPlayerComponent implements OnInit {
   fromConst = epubPlayerConstants;
   @Input() playerConfig: PlayerConfig;
   @Output() headerActionsEvent: EventEmitter<any> = new EventEmitter<any>();
@@ -63,10 +63,6 @@ export class EpubPlayerComponent implements OnInit, AfterViewInit {
 
   headerActions(event) {
     this.headerActionsEvent.emit(event.type);
-  }
-
-  ngAfterViewInit() {
-    // this.viewState = this.fromConst.START;
   }
 
   viewerEvent(event) {
