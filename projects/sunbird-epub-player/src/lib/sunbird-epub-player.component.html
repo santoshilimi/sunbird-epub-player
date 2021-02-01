@@ -1,1 +1,16 @@
-<p>epub-player works!</p>
+<div *ngIf="viewState === fromConst.LOADING">
+    <sb-player-start-page [title]="viwerService.contentName" [progress]="progress"></sb-player-start-page>
+</div>
+<div [hidden]="viewState !== fromConst.START">
+    <sb-player-header [config]="headerConfiguration"  (actions)="headerActions($event)"></sb-player-header>
+    <sb-player-side-menu-icon (sidebarMenuEvent)="sidebarMenuEvent($event)">
+    </sb-player-side-menu-icon>
+    <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
+        [config]="playerConfig.config"></sb-player-sidebar>
+    <epub-viewer  [actions]="headerActionsEvent" [epubSrc]="viwerService.src" [identifier]="viwerService.identifier" (viewerEvent)="viewerEvent($event)">
+    </epub-viewer>
+</div>
+<sb-player-end-page *ngIf="viewState === fromConst.END" [contentName]="viwerService.contentName"
+    [outcomeLabel]="'Pages'" [outcome]="viwerService.currentIndex" [userName]="viwerService.userName"
+    [timeSpentLabel]="viwerService.timeSpent" (replayContent)="replayContent($event)">
+</sb-player-end-page>

@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import  { SunbirdEpubPlayerModule } from 'epub-player'
+import  { SunbirdEpubPlayerModule } from 'sunbird-epub-player'
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import  { SunbirdEpubPlayerModule } from 'epub-player'
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     SunbirdEpubPlayerModule
   ],
   providers: [],
