@@ -77,7 +77,6 @@ export class ViwerService {
   }
 
   raiseHeartBeatEvent(event, teleType?) {
-    console.log('event is', event , teleType);
     if (event.data) {
       this.currentIndex = event.data.index;
     }

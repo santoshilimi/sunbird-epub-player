@@ -19,7 +19,6 @@ describe('UtilService', () => {
   it('should return time spent text', () => {
     const service: UtilService = TestBed.get(UtilService);
     const time = service.getTimeSpentText(10);
-    console.log(time);
     expect(time).toBeDefined();
   });
 
