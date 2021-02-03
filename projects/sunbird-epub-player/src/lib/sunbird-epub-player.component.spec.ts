@@ -114,4 +114,20 @@ describe('EpubPlayerComponent', () => {
     component.sidebarMenuEvent({type:'SHARE' , data: ''})
     expect(viewerService.raiseHeartBeatEvent).toHaveBeenCalled();
   })
+ 
+  it('should call ngOnDestroy', ()=>{
+    const endEvent = {
+      type: 'END',
+      data: {
+        index: 0
+      }
+    }
+    const viewerService = TestBed.get(ViwerService);
+    spyOn(viewerService , 'raiseEndEvent');
+    component.ngOnDestroy();
+    expect(viewerService.raiseEndEvent).toHaveBeenCalledWith(endEvent)
+
+
+    
+  })
 });
