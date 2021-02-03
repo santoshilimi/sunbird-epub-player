@@ -12,7 +12,7 @@ export class AppComponent {
     sideMenu: {
       showShare: true,
       showDownload: true,
-      showReplay: true,
+      showReplay: false,
       showExit: false,
     }
   }

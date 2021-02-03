@@ -21,7 +21,7 @@ export class EpubPlayerComponent implements OnInit {
   sideMenuConfig = {
     showShare: true,
     showDownload: true,
-    showReplay: true,
+    showReplay: false,
     showExit: false
   };
 
