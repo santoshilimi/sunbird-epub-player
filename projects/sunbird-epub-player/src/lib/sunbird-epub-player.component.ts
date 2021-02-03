@@ -18,6 +18,13 @@ export class EpubPlayerComponent implements OnInit {
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() playerEvent: EventEmitter<object>;
 
+  sideMenuConfig = {
+    showShare: true,
+    showDownload: true,
+    showReplay: true,
+    showExit: false
+  };
+
   viewState = this.fromConst.LOADING;
   intervalRef: any;
   progress = 0;
@@ -44,6 +51,7 @@ export class EpubPlayerComponent implements OnInit {
 
   ngOnInit() {
     this.traceId = this.playerConfig.config['traceId'];
+    this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.getEpubLoadingProgress();
     this.errorService.getInternetConnectivityError.subscribe(event => {
       this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, errorMessage.internetConnectivity, event['error'], this.traceId)

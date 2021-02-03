@@ -6,7 +6,7 @@
     <sb-player-side-menu-icon (sidebarMenuEvent)="sidebarMenuEvent($event)">
     </sb-player-side-menu-icon>
     <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
-        [config]="playerConfig.config"></sb-player-sidebar>
+        [config]="sideMenuConfig"></sb-player-sidebar>
     <epub-viewer  [actions]="headerActionsEvent" [epubSrc]="viwerService.src" [identifier]="viwerService.identifier" (viewerEvent)="viewerEvent($event)">
     </epub-viewer>
 </div>
