@@ -1,4 +1,4 @@
-import { EventEmitter, Component, Output, Input, OnInit, HostListener } from '@angular/core';
+import { EventEmitter, Component, Output, Input, OnInit, HostListener , OnDestroy } from '@angular/core';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { PlayerConfig } from './sunbird-epub-player.interface';
 import { EpubPlayerService } from './sunbird-epub-player.service';
@@ -11,17 +11,25 @@ import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss']
 })
-export class EpubPlayerComponent implements OnInit {
+export class EpubPlayerComponent implements OnInit , OnDestroy {
   fromConst = epubPlayerConstants;
   @Input() playerConfig: PlayerConfig;
   @Output() headerActionsEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() playerEvent: EventEmitter<object>;
 
+  sideMenuConfig = {
+    showShare: true,
+    showDownload: true,
+    showReplay: false,
+    showExit: false
+  };
+
   viewState = this.fromConst.LOADING;
   intervalRef: any;
   progress = 0;
   public traceId: string;
+  currentPageIndex = 0;
   headerConfiguration = {
     rotation: false,
     goto: false,
@@ -44,6 +52,7 @@ export class EpubPlayerComponent implements OnInit {
 
   ngOnInit() {
     this.traceId = this.playerConfig.config['traceId'];
+    this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.getEpubLoadingProgress();
     this.errorService.getInternetConnectivityError.subscribe(event => {
       this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, errorMessage.internetConnectivity, event['error'], this.traceId)
@@ -85,6 +94,7 @@ export class EpubPlayerComponent implements OnInit {
   }
 
   onPageChange(event) {
+    this.currentPageIndex = event.data.index;
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.IMPRESSION);
   }
@@ -121,5 +131,15 @@ export class EpubPlayerComponent implements OnInit {
         this.progress = this.progress + 10;
       }
     })
+  }
+
+  ngOnDestroy(){
+    const EndEvent = {
+      type: this.fromConst.END,
+      data: {
+        index: this.currentPageIndex
+      }
+    }
+    this.viwerService.raiseEndEvent(EndEvent);
   }
 }
