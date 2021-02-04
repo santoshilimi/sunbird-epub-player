@@ -9,4 +9,22 @@
     .sb-player-splash-container {
         height: 100vh !important;
     }
+
+    epub-viewer {
+        position: absolute;
+        top: 48px;
+        width: 100%;
+        height: calc(100% - 48px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        left: 0;
+
+    }
+
+    .epub-container {
+        height: 100%;
+        position: relative;
+        overflow-x: hidden !important;
+
+    }
 }

@@ -29,7 +29,7 @@ export class EpubViewerComponent implements  OnInit , AfterViewInit {
     this.eBook = Epub(this.epubSrc);
     this.eBook.open(this.epubSrc).then(async (res) => {
       this.rendition = this.eBook.renderTo(this.idForRendition, {
-        method: "continuous", flow: "scrolled-continuous", width: "100%"
+        method: "continuous", flow: "scrolled-continuous", width: "100%", height: "100%"
       });
       this.rendition.display();
       this.displayed = this.rendition.display();

@@ -24,6 +24,7 @@ export class ViwerService {
   public userName: string;
   private metaData: any;
   public identifier: any;
+  public artifactUrl: any;
   constructor(
     private utilService: UtilService,
     private epubPlayerService: EpubPlayerService
@@ -35,6 +36,7 @@ export class ViwerService {
     this.currentIndex = 0;
     this.contentName = metadata.name;
     this.identifier = metadata.identifier;
+    this.artifactUrl = metadata.artifactUrl;
     if (metadata.isAvailableLocally) {
       const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir)
       this.src = `${basePath}/${metadata.artifactUrl}`;
@@ -85,7 +87,7 @@ export class ViwerService {
       eid: 'HEARTBEAT',
       ver: this.version,
       edata: {
-        eventType,
+        type: eventType,
         currentPage: this.currentIndex
       },
       metaData: this.metaData
