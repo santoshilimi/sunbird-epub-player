@@ -20,7 +20,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
 
   sideMenuConfig = {
     showShare: true,
-    showDownload: false,
+    showDownload: true,
     showReplay: false,
     showExit: false
   };
@@ -119,6 +119,9 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
 
   sideBarEvents(event) {
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
+    if (event === 'DOWNLOAD') {
+      this.downloadEpub();
+    }
   }
 
   sidebarMenuEvent(event) {
@@ -131,6 +134,17 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
         this.progress = this.progress + 10;
       }
     })
+  }
+
+  downloadEpub() {
+    const a = document.createElement('a');
+    a.href = this.viwerService.artifactUrl;
+    a.download = this.viwerService.contentName;
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    this.viwerService.raiseHeartBeatEvent('DOWNLOAD');
   }
 
   ngOnDestroy(){
