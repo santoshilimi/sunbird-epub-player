@@ -85,7 +85,7 @@ export class ViwerService {
       eid: 'HEARTBEAT',
       ver: this.version,
       edata: {
-        eventType,
+        type: eventType,
         currentPage: this.currentIndex
       },
       metaData: this.metaData

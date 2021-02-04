@@ -20,7 +20,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
 
   sideMenuConfig = {
     showShare: true,
-    showDownload: true,
+    showDownload: false,
     showReplay: false,
     showExit: false
   };
