@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-library": "ng build sunbird-epub-player && node assets-copy.js",
+    "build-lib": "ng build sunbird-epub-player && node assets-copy.js",
+    "link-player": "cd dist/sunbird-epub-player && npm link && cd ../.. && npm link @project-sunbird/sunbird-epub-player-v8",
     "lib-test": "ng test sunbird-epub-player"
   },
   "private": true,
