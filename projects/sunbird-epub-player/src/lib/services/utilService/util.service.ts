@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+import { epubPlayerConstants } from '../../sunbird-epub.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
-
+  fromConst = epubPlayerConstants;
+  
   constructor() { }
 
   public uniqueId(length = 32) {
@@ -23,4 +25,13 @@ export class UtilService {
     const seconds = Number(((duration % 60000) / 1000).toFixed(0));
     return (minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
   }
+
+  getCurrentIndex(event , currentPageIndex) {
+    if (event['interaction'] === this.fromConst.NEXT) {
+      return currentPageIndex + 1;
+    }
+    if (event['interaction'] === this.fromConst.PREVIOUS) {
+      return currentPageIndex - 1 ==  -1 ? 0 : currentPageIndex -1;
+    }
+}
 }
