@@ -138,10 +138,10 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
 
   getEpubLoadingProgress() {
     this.intervalRef = setInterval(() => {
-      if (this.progress <= 99) {
-        this.progress = this.progress + 10;
+      if (this.progress < 95) {
+        this.progress = this.progress + 5;
       }
-    })
+    }, 10);
   }
 
   downloadEpub() {

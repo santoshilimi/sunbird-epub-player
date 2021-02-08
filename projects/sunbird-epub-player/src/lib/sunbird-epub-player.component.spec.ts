@@ -27,7 +27,13 @@ describe('EpubPlayerComponent', () => {
     fixture = TestBed.createComponent(EpubPlayerComponent);
     component = fixture.componentInstance;
     component.playerConfig = mockData.playerConfig;
+    jasmine.clock().uninstall();
+    jasmine.clock().install();
     fixture.detectChanges();
+  });
+
+  afterEach( () => {
+    jasmine.clock().uninstall();
   });
 
   it('should create', () => {
@@ -125,9 +131,13 @@ describe('EpubPlayerComponent', () => {
     const viewerService = TestBed.get(ViwerService);
     spyOn(viewerService , 'raiseEndEvent');
     component.ngOnDestroy();
-    expect(viewerService.raiseEndEvent).toHaveBeenCalledWith(endEvent)
+    expect(viewerService.raiseEndEvent).toHaveBeenCalled()
+  });
 
-
-    
+  it('should get progress for loading screen', () => {
+    component.progress = 20;
+    component.getEpubLoadingProgress();
+    jasmine.clock().tick(11);
+    expect(component.progress).toEqual(30);
   })
 });
