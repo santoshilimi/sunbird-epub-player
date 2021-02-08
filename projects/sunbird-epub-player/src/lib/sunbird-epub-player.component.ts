@@ -141,7 +141,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
       if (this.progress < 95) {
         this.progress = this.progress + 5;
       }
-    })
+    }, 10);
   }
 
   downloadEpub() {
