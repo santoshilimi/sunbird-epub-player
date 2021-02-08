@@ -41,7 +41,7 @@ export class EpubViewerComponent implements  OnInit , AfterViewInit {
       .catch((error) => {
         this.viewerEvent.emit({
           type: fromConst.ERROR,
-          err: error
+          err: error === null ? fromConst.UNABLE_TO_FETCH_URL_ONLINE : error
         })
       })
     this.actions.subscribe((type) => {
