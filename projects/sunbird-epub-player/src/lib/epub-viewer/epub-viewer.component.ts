@@ -38,34 +38,28 @@ export class EpubViewerComponent implements  OnInit , AfterViewInit {
         data: await this.getEpubSpine()
       });
     })
-      .catch((err) => {
+      .catch((error) => {
         this.viewerEvent.emit({
           type: fromConst.ERROR,
-          err: fromConst.UNABLE_TO_FETCH_URL_ONLINE
+          err: error === null ? fromConst.UNABLE_TO_FETCH_URL_ONLINE : error
         })
       })
-
     this.actions.subscribe((type) => {
       const data = this.rendition.location.start;
       if (type === fromConst.NEXT) {
         this.rendition.next();
-        if (data.index === this.lastIndex) {
-          this.viewerEvent.emit({
-            type: fromConst.END,
-            data: data
-          })
-        } else {
           this.viewerEvent.emit({
             type: fromConst.PAGECHANGE,
-            data: data
+            data: data,
+            interaction: fromConst.NEXT
           })
-        }
       }
       if (type === fromConst.PREVIOUS) {
         this.rendition.prev();
         this.viewerEvent.emit({
           type: fromConst.PAGECHANGE,
-          data: data
+          data: data,
+          interaction: fromConst.PREVIOUS
         })
       }
     })

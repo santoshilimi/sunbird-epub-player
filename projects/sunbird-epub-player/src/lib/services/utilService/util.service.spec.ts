@@ -22,4 +22,24 @@ describe('UtilService', () => {
     expect(time).toBeDefined();
   });
 
+  it('should return current index when next', () =>{
+    const service: UtilService = TestBed.get(UtilService);
+      const event = {
+        interaction: 'NEXT'
+      }
+      const currentPageIndex = 1;
+      const response = service.getCurrentIndex(event , currentPageIndex);
+      expect(response).toBe(2);
+  })
+
+  it('should return current index when previous', () =>{
+    const service: UtilService = TestBed.get(UtilService);
+      const event = {
+        interaction: 'PREVIOUS'
+      }
+      const currentPageIndex = 1;
+      const response = service.getCurrentIndex(event , currentPageIndex);
+      expect(response).toBe(0);
+  })
+
 });

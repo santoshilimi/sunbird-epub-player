@@ -4,6 +4,7 @@ import { PlayerConfig } from './sunbird-epub-player.interface';
 import { EpubPlayerService } from './sunbird-epub-player.service';
 import { epubPlayerConstants, telemetryType } from './sunbird-epub.constant';
 import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
+import { UtilService } from './services/utilService/util.service';
 
 
 @Component({
@@ -24,12 +25,12 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
     showReplay: false,
     showExit: false
   };
-
   viewState = this.fromConst.LOADING;
   intervalRef: any;
   progress = 0;
+  totalNumberOfPages;
   public traceId: string;
-  currentPageIndex = 0;
+  currentPageIndex = 1;
   headerConfiguration = {
     rotation: false,
     goto: false,
@@ -40,7 +41,8 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
   constructor(
     public viwerService: ViwerService,
     private epubPlayerService: EpubPlayerService,
-    public errorService: ErrorService
+    public errorService: ErrorService,
+    public utilService: UtilService
   ) {
     this.playerEvent = this.viwerService.playerEvent;
   }
@@ -88,15 +90,20 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
   }
 
   onEpubLoaded(event) {
+    this.totalNumberOfPages = (event.data.length - 1);
     clearInterval(this.intervalRef);
     this.viewState = this.fromConst.START;
     this.viwerService.raiseStartEvent(event.data);
   }
 
   onPageChange(event) {
-    this.currentPageIndex = event.data.index;
+    this.currentPageIndex = this.utilService.getCurrentIndex(event , this.currentPageIndex);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.IMPRESSION);
+    if(this.currentPageIndex > this.totalNumberOfPages) {
+      this.viewState = this.fromConst.END;
+      this.viwerService.raiseEndEvent(event);
+    }
   }
 
   onEpubEnded(event) {
@@ -112,6 +119,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
   }
 
   replayContent(event) {
+    this.currentPageIndex = 0;
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     this.viewState = this.fromConst.START;
     this.ngOnInit();
