@@ -154,7 +154,8 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
     a.remove();
     this.viwerService.raiseHeartBeatEvent('DOWNLOAD');
   }
-
+  
+  @HostListener('window:beforeunload')
   ngOnDestroy(){
     const EndEvent = {
       type: this.fromConst.END,
