@@ -1,19 +1,23 @@
 <div *ngIf="viewState === fromConst.LOADING">
     <sb-player-start-page [title]="viwerService.contentName" [progress]="progress"></sb-player-start-page>
 </div>
-<div  class="epub-container" [hidden]="viewState !== fromConst.START">
-    <sb-player-header [config]="headerConfiguration"  (actions)="headerActions($event)"></sb-player-header>
-    <sb-player-side-menu-icon (sidebarMenuEvent)="sidebarMenuEvent($event)">
-    </sb-player-side-menu-icon>
-    <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
-        [config]="sideMenuConfig"></sb-player-sidebar>
-    <div class="sb-epub-reading-status">
-        Location {{currentPageIndex}} of {{totalNumberOfPages}}
-        <span> &nbsp; &#8226; &nbsp;
-            {{((currentPageIndex/totalNumberOfPages) * 100).toFixed(0) }}%
-        </span>
-    </div>
-    <epub-viewer  [actions]="headerActionsEvent" [epubSrc]="viwerService.src" [identifier]="viwerService.identifier" (viewerEvent)="viewerEvent($event)">
+<div class="epub-container" *ngIf="showEpubViewer">
+    <ng-container *ngIf="viewState === fromConst.START">
+        <sb-player-header [config]="headerConfiguration" (actions)="headerActions($event)" [ngClass]="{'isVisible': showControls}"></sb-player-header>
+        <sb-player-side-menu-icon (sidebarMenuEvent)="sidebarMenuEvent($event)">
+        </sb-player-side-menu-icon>
+        <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
+            [config]="sideMenuConfig"></sb-player-sidebar>
+        <div class="sb-epub-reading-status">
+            Location {{currentPageIndex}} of {{totalNumberOfPages}}
+            <span> &nbsp; &#8226; &nbsp;
+                {{((currentPageIndex/totalNumberOfPages) * 100).toFixed(0) }}%
+            </span>
+        </div>
+        
+    </ng-container>
+    <epub-viewer  [actions]="headerActionsEvent" [epubSrc]="viwerService.src" [identifier]="viwerService.identifier"
+        (viewerEvent)="viewerEvent($event)">
     </epub-viewer>
 </div>
 <sb-player-end-page *ngIf="viewState === fromConst.END" [contentName]="viwerService.contentName"

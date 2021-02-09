@@ -28,6 +28,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
   viewState = this.fromConst.LOADING;
   intervalRef: any;
   progress = 0;
+  showEpubViewer: boolean;
   totalNumberOfPages;
   public traceId: string;
   currentPageIndex = 1;
@@ -54,6 +55,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
 
   ngOnInit() {
     this.traceId = this.playerConfig.config['traceId'];
+    this.showEpubViewer = true;
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.getEpubLoadingProgress();
     this.errorService.getInternetConnectivityError.subscribe(event => {
@@ -102,6 +104,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.IMPRESSION);
     if(this.currentPageIndex > this.totalNumberOfPages) {
       this.viewState = this.fromConst.END;
+      this.showEpubViewer = false;
       this.viwerService.raiseEndEvent(event);
     }
   }
@@ -119,7 +122,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
   }
 
   replayContent(event) {
-    this.currentPageIndex = 0;
+    this.currentPageIndex = 1;
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     this.viewState = this.fromConst.START;
     this.ngOnInit();
@@ -154,7 +157,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
     a.remove();
     this.viwerService.raiseHeartBeatEvent('DOWNLOAD');
   }
-  
+
   @HostListener('window:beforeunload')
   ngOnDestroy(){
     const EndEvent = {
