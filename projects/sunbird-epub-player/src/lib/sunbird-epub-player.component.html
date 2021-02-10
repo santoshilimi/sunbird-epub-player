@@ -22,7 +22,7 @@
     </epub-viewer>
 </div>
 <sb-player-end-page *ngIf="viewState === fromConst.END" [contentName]="viwerService.contentName"
-    [outcomeLabel]="'Pages'" [outcome]="viwerService.currentIndex" [userName]="viwerService.userName"
+    [outcomeLabel]="'Pages'" [outcome]="(viwerService.totalNumberOfPages-1)" [userName]="viwerService.userName"
     [timeSpentLabel]="viwerService.timeSpent" (replayContent)="replayContent($event)">
 </sb-player-end-page>
 </div>
