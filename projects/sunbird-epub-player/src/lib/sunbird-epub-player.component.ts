@@ -1,4 +1,4 @@
-import { EventEmitter, Component, Output, Input, OnInit, HostListener , OnDestroy } from '@angular/core';
+import { EventEmitter, Component, Output, Input, OnInit, HostListener , OnDestroy, ElementRef, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { PlayerConfig } from './sunbird-epub-player.interface';
 import { EpubPlayerService } from './sunbird-epub-player.service';
@@ -12,13 +12,16 @@ import { UtilService } from './services/utilService/util.service';
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss']
 })
-export class EpubPlayerComponent implements OnInit , OnDestroy {
+export class EpubPlayerComponent implements OnInit , OnDestroy , AfterViewInit {
   fromConst = epubPlayerConstants;
+  @ViewChild('epubPlayer', {static: true}) epubPlayerRef: ElementRef;
   @Input() playerConfig: PlayerConfig;
   @Output() headerActionsEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() playerEvent: EventEmitter<object>;
-
+  private unlistenMouseEnter: () => void;
+  private unlistenMouseLeave: () => void;
+  public showControls = true;
   sideMenuConfig = {
     showShare: true,
     showDownload: true,
@@ -43,7 +46,8 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
     public viwerService: ViwerService,
     private epubPlayerService: EpubPlayerService,
     public errorService: ErrorService,
-    public utilService: UtilService
+    public utilService: UtilService,
+    private renderer2: Renderer2
   ) {
     this.playerEvent = this.viwerService.playerEvent;
   }
@@ -72,6 +76,17 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
     }
     this.epubPlayerService.initialize(this.playerConfig);
     this.viwerService.initialize(this.playerConfig);
+  }
+
+  ngAfterViewInit(){
+    const epubPlayerElement = this.epubPlayerRef.nativeElement;
+    this.unlistenMouseEnter = this.renderer2.listen(epubPlayerElement, 'mouseenter', () => {
+      this.showControls = true;
+    });
+
+    this.unlistenMouseLeave = this.renderer2.listen(epubPlayerElement, 'mouseleave', () => {
+      this.showControls = false;
+    });
   }
 
   headerActions(event) {
@@ -167,5 +182,7 @@ export class EpubPlayerComponent implements OnInit , OnDestroy {
       }
     }
     this.viwerService.raiseEndEvent(EndEvent);
+    this.unlistenMouseEnter();
+    this.unlistenMouseLeave();
   }
 }
