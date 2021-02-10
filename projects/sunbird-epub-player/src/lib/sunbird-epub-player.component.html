@@ -3,7 +3,7 @@
 </div>
 <div class="epub-container" *ngIf="showEpubViewer">
     <ng-container *ngIf="viewState === fromConst.START">
-        <sb-player-header [config]="headerConfiguration" (actions)="headerActions($event)" [ngClass]="{'isVisible': showControls}"></sb-player-header>
+        <sb-player-header [config]="headerConfiguration" (actions)="headerActions($event)"></sb-player-header>
         <sb-player-side-menu-icon (sidebarMenuEvent)="sidebarMenuEvent($event)">
         </sb-player-side-menu-icon>
         <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
