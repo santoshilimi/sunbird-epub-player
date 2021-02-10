@@ -1,10 +1,11 @@
+<div class="sunbird-epub-container" #epubPlayer>
 <div *ngIf="viewState === fromConst.LOADING">
     <sb-player-start-page [title]="viwerService.contentName" [progress]="progress"></sb-player-start-page>
 </div>
 <div class="epub-container" *ngIf="showEpubViewer">
     <ng-container *ngIf="viewState === fromConst.START">
-        <sb-player-header [config]="headerConfiguration" (actions)="headerActions($event)"></sb-player-header>
-        <sb-player-side-menu-icon (sidebarMenuEvent)="sidebarMenuEvent($event)">
+        <sb-player-header class="notVisible" [config]="headerConfiguration" (actions)="headerActions($event)" [ngClass]="{'isVisible': showControls}"></sb-player-header>
+        <sb-player-side-menu-icon class="notVisible"  [ngClass]="{'isVisible': showControls}" (sidebarMenuEvent)="sidebarMenuEvent($event)">
         </sb-player-side-menu-icon>
         <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
             [config]="sideMenuConfig"></sb-player-sidebar>
@@ -24,3 +25,4 @@
     [outcomeLabel]="'Pages'" [outcome]="viwerService.currentIndex" [userName]="viwerService.userName"
     [timeSpentLabel]="viwerService.timeSpent" (replayContent)="replayContent($event)">
 </sb-player-end-page>
+</div>
