@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, Output, OnInit } from '@angular/core';
+import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
 import Epub from 'epubjs';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 @Component({
@@ -6,7 +6,7 @@ import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
   templateUrl: './epub-viewer.component.html',
   styleUrls: ['./epub-viewer.component.css']
 })
-export class EpubViewerComponent implements OnInit, AfterViewInit {
+export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
   eBook: any;
   rendition: any;
   lastIndex: any;
@@ -57,5 +57,9 @@ export class EpubViewerComponent implements OnInit, AfterViewInit {
         err: error || fromConst.UNABLE_TO_FETCH_URL_ONLINE
       })
     }
+  }
+
+  ngOnDestroy() {
+    this.eBook && this.eBook.destroy();
   }
 }
