@@ -31,7 +31,7 @@ export class UtilService {
       return currentPageIndex + 1;
     }
     if (event['interaction'] === this.fromConst.PREVIOUS) {
-      return currentPageIndex - 1 ==  -1 ? 0 : currentPageIndex -1;
+      return currentPageIndex - 1 ==  0 ? 1 : currentPageIndex -1;
     }
 }
 }
