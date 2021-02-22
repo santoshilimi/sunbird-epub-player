@@ -26,7 +26,8 @@ export class EpubPlayerComponent implements OnInit , OnDestroy , AfterViewInit {
     showShare: true,
     showDownload: true,
     showReplay: false,
-    showExit: false
+    showExit: false,
+    showPrint: true
   };
   viewState = this.fromConst.LOADING;
   intervalRef: any;
