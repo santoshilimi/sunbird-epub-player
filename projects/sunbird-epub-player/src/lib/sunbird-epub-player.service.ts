@@ -94,7 +94,7 @@ export class EpubPlayerService {
     });
   }
 
-  public end(duration, currentPage, totalpages, visitedlength, endpageseen) {
+  public end(duration, percentage, curentPage, endpageseen) {
     const durationSec = Number((duration / 1e3).toFixed(2));
     CsTelemetryModule.instance.telemetryService.raiseEndTelemetry({
       edata: {
@@ -103,19 +103,19 @@ export class EpubPlayerService {
         pageid: 'sunbird-player-Endpage',
         summary: [
           {
-            progress: Number(((currentPage / totalpages) * 100).toFixed(0))
+            progress: percentage
           },
           {
-            totallength: totalpages
+            totallength: (percentage ===100 ? curentPage: 1)
           },
           {
-            visitedlength
+            visitedlength: curentPage
           },
           {
-            visitedcontentend: (currentPage === totalpages)
+            visitedcontentend: (percentage === 100)
           },
           {
-            totalseekedlength: totalpages - visitedlength
+            totalseekedlength: 0
           },
           {
             endpageseen

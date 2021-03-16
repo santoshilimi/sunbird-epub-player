@@ -9,7 +9,8 @@ import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
   eBook: any;
   rendition: any;
-  lastIndex: any;
+  lastSection: any;
+  scrolled: boolean
   @ViewChild('epubViewer', { static: true }) epubViewer: ElementRef;
   @Input() epubSrc: string;
   @Input() identifier: string;
@@ -20,35 +21,55 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.idForRendition = `${this.identifier}-content`;
   }
   async ngAfterViewInit() {
-    var that = this;
     try {
       this.eBook = Epub(this.epubSrc);
       this.rendition = this.eBook.renderTo(this.idForRendition, {
         flow: "paginated",
-        width: "100%",
-        height: 600
+        width: this.epubViewer.nativeElement.offsetWidth,
+        height: this.epubViewer.nativeElement.offsetHeight
       });
       this.rendition.display();
-      this.rendition.on("layout", function(layout) {
-        if(that.eBook.navigation.length > 2) {
-          that.rendition.spread("none");
-          that.rendition.flow("scrolled");
+      this.rendition.on("layout", (layout) => {
+        if (this.eBook.navigation.length > 2) {
+          this.rendition.spread("none");
+          this.rendition.flow("scrolled");
+          this.scrolled = true
         } else {
-          that.rendition.spread("auto");
+          this.rendition.spread("auto");
+          this.scrolled = false;
         }
       });
-      
+
       const spine = await this.eBook.loaded.spine;
-      this.lastIndex = spine.items[spine.items.length - 1].index;
+
+      this.lastSection = spine.last();
+      if (!this.scrolled) {
+
+      }
       this.viewerEvent.emit({
         type: fromConst.EPUBLOADED,
         data: spine
       });
-      
-      
-  
+
       this.actions.subscribe((type) => {
         const data = this.rendition.location.start;
+        if (this.scrolled && data.href === this.lastSection.href) {
+          this.viewerEvent.emit({
+            type: fromConst.END,
+            data: {
+              percentage: 100
+            }
+          })
+        } else {
+          if (this.rendition.location.atEnd) {
+            this.viewerEvent.emit({
+              type: fromConst.END,
+              data: {
+                percentage: 100
+              }
+            })
+          }
+        }
         if (type === fromConst.NEXT) {
           this.rendition.next();
           this.viewerEvent.emit({

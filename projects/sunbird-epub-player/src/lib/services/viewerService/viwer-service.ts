@@ -60,8 +60,6 @@ export class ViwerService {
 
   raiseStartEvent(event) {
     this.currentIndex = event.items[0].index;
-    this.metaData.totalPages = event.items.length;
-    this.totalNumberOfPages = event.items.length;
     const duration = new Date().getTime() - this.epubPlayerStartTime;
     const startEvent = {
       eid: 'START',
@@ -103,6 +101,10 @@ export class ViwerService {
 
   raiseEndEvent(event) {
     this.currentIndex = event.data.index;
+    const percentage = event.data.percentage || 0
+    if(event.data.percentage) {
+      this.endPageSeen = true
+    } 
     const duration = new Date().getTime() - this.epubPlayerStartTime;
     const endEvent = {
       eid: 'END',
@@ -110,7 +112,7 @@ export class ViwerService {
       edata: {
         type: 'END',
         currentPage: event.data.index,
-        totalPages: this.totalNumberOfPages,
+        totalPages: this.currentIndex,
         duration
       },
       metaData: this.metaData
@@ -118,8 +120,7 @@ export class ViwerService {
     this.playerEvent.emit(endEvent);
     const visitedlength = this.currentIndex;
     this.timeSpent = this.utilService.getTimeSpentText(this.epubPlayerStartTime);
-    this.epubPlayerService.end(duration,
-      this.currentIndex, this.totalNumberOfPages, visitedlength, this.endPageSeen);
+    this.epubPlayerService.end(duration, percentage, this.currentIndex, this.endPageSeen);
   }
 
 
