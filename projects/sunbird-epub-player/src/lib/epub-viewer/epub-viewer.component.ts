@@ -20,18 +20,33 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.idForRendition = `${this.identifier}-content`;
   }
   async ngAfterViewInit() {
+    var that = this;
     try {
       this.eBook = Epub(this.epubSrc);
       this.rendition = this.eBook.renderTo(this.idForRendition, {
-        method: "continuous", flow: "scrolled-continuous", width: "100%", height: "100%"
+        flow: "paginated",
+        width: "100%",
+        height: 600
       });
-      await this.rendition.display();
+      this.rendition.display();
+      this.rendition.on("layout", function(layout) {
+        if(that.eBook.navigation.length > 2) {
+          that.rendition.spread("none");
+          that.rendition.flow("scrolled");
+        } else {
+          that.rendition.spread("auto");
+        }
+      });
+      
       const spine = await this.eBook.loaded.spine;
       this.lastIndex = spine.items[spine.items.length - 1].index;
       this.viewerEvent.emit({
         type: fromConst.EPUBLOADED,
         data: spine
       });
+      
+      
+  
       this.actions.subscribe((type) => {
         const data = this.rendition.location.start;
         if (type === fromConst.NEXT) {
