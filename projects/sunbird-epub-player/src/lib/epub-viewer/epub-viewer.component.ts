@@ -61,7 +61,7 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
             }
           })
         } else {
-          if (this.rendition.location.atEnd (this.eBook.navigation.length === 1 && (this.rendition.location.end.displayed.page + 1 >= this.rendition.location.end.displayed.total))) {
+          if (this.rendition.location.atEnd || (this.eBook.navigation.length === 1 && (this.rendition.location.end.displayed.page + 1 >= this.rendition.location.end.displayed.total))) {
             this.viewerEvent.emit({
               type: fromConst.END,
               data: {
