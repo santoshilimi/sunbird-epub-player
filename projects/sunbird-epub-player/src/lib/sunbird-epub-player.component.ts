@@ -139,6 +139,10 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.ngOnInit();
   }
 
+  exitContent(event) {
+    this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
+  }
+
   sideBarEvents(event) {
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     if (event === 'DOWNLOAD') {
