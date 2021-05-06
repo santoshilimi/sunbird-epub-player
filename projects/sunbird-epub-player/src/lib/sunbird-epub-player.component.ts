@@ -63,15 +63,15 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.getEpubLoadingProgress();
     this.errorService.getInternetConnectivityError.subscribe(event => {
-      this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, errorMessage.internetConnectivity, event['error'], this.traceId)
+      this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex ,  errorMessage.internetConnectivity, event['error'], this.traceId)
     });
 
     const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible['isCompitable']) {
-        this.viwerService.raiseErrorEvent(checkContentCompatible['error'], 'compatibility-error');
-        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
+        this.viwerService.raiseErrorEvent(checkContentCompatible['error'], this.currentPageIndex,  'compatibility-error');
+        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex , errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
       }
     }
     this.epubPlayerService.initialize(this.playerConfig);
@@ -127,9 +127,9 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onEpubLoadFailed(error) {
     this.viewState = this.fromConst.LOADING
-    this.viwerService.raiseErrorEvent(error);
-    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, errorMessage.contentLoadFails, error, this.traceId);
-    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, errorMessage.contentLoadFails, error, this.traceId);
+    this.viwerService.raiseErrorEvent(error, this.currentPageIndex);
+    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails,this.currentPageIndex ,  errorMessage.contentLoadFails, error, this.traceId);
+    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, this.currentPageIndex,  errorMessage.contentLoadFails, error, this.traceId);
   }
 
   replayContent(event) {

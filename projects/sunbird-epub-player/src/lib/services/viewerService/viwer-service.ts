@@ -124,10 +124,11 @@ export class ViwerService {
   }
 
 
-  raiseErrorEvent(error: Error, type?: string) {
+  raiseErrorEvent(error: Error, pageIndex, type?: string) {
     const errorEvent = {
       eid: 'ERROR',
       ver: this.version,
+      pageIndex,
       edata: {
         type: type || 'ERROR',
         stacktrace: error ? error.toString() : ''
@@ -136,11 +137,11 @@ export class ViwerService {
     };
     this.playerEvent.emit(errorEvent);
     if (!type) {
-    this.epubPlayerService.error(error);
+    this.epubPlayerService.error(error , pageIndex);
     }
   }
 
-  raiseExceptionLog(errorCode: string , errorType: string , stacktrace , traceId ) {
+  raiseExceptionLog(errorCode: string , pageIndex, errorType: string , stacktrace , traceId ) {
     const exceptionLogEvent = {
       eid: "ERROR",
       edata: {
@@ -151,6 +152,6 @@ export class ViwerService {
       }
     }
     this.playerEvent.emit(exceptionLogEvent)
-    this.epubPlayerService.error(stacktrace, { err: errorCode, errtype: errorType });
+    this.epubPlayerService.error(stacktrace, pageIndex, { err: errorCode, errtype: errorType });
   }
 }
