@@ -39,8 +39,17 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
           this.scrolled = false;
         }
       });
+      
+      if(!this.eBook.isRendered) {
+        this.viewerEvent.emit({
+          type: fromConst.ERROR,
+          err:  fromConst.UNABLE_TO_FETCH_URL_ONLINE
+        })
+      }
+
 
       const spine = await this.eBook.loaded.spine;
+
 
       this.lastSection = spine.last();
       if (!this.scrolled) {
