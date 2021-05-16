@@ -25,6 +25,7 @@ export class ViwerService {
   private metaData: any;
   public identifier: any;
   public artifactUrl: any;
+  public isAvailableLocally: boolean = false;
   constructor(
     private utilService: UtilService,
     private epubPlayerService: EpubPlayerService
@@ -37,7 +38,8 @@ export class ViwerService {
     this.contentName = metadata.name;
     this.identifier = metadata.identifier;
     this.artifactUrl = metadata.artifactUrl;
-    if (metadata.isAvailableLocally) {
+    this.isAvailableLocally = metadata.isAvailableLocally;
+    if (this.isAvailableLocally) {
       const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir)
       this.src = `${basePath}/${metadata.artifactUrl}`;
     } else {
@@ -124,34 +126,25 @@ export class ViwerService {
   }
 
 
-  raiseErrorEvent(error: Error, pageIndex, type?: string) {
-    const errorEvent = {
-      eid: 'ERROR',
-      ver: this.version,
-      pageIndex,
-      edata: {
-        type: type || 'ERROR',
-        stacktrace: error ? error.toString() : ''
-      },
-      metaData: this.metaData
-    };
-    this.playerEvent.emit(errorEvent);
-    if (!type) {
-    this.epubPlayerService.error(error , pageIndex);
-    }
-  }
-
-  raiseExceptionLog(errorCode: string , pageIndex, errorType: string , stacktrace , traceId ) {
+  raiseExceptionLog(errorCode: string , pageIndex, errorType: string , traceId , stacktrace: Error ) {   
     const exceptionLogEvent = {
       eid: "ERROR",
       edata: {
           err: errorCode,
           errtype: errorType,
           requestid: traceId || '',
-          stacktrace: stacktrace || '',
+          stacktrace: stacktrace
       }
     }
     this.playerEvent.emit(exceptionLogEvent)
-    this.epubPlayerService.error(stacktrace, pageIndex, { err: errorCode, errtype: errorType });
+    this.epubPlayerService.error(errorCode ,errorType, pageIndex , stacktrace);
+  }
+
+  async isValidEpubSrc(src) {
+    return new Promise( async (resolve) =>{
+      window.fetch(src).then((res) =>{
+        resolve(res.ok);
+     })
+    })
   }
 }
