@@ -3,6 +3,7 @@ import { PlayerConfig } from '../../sunbird-epub-player.interface';
 import { EpubPlayerService } from '../../sunbird-epub-player.service';
 import { UtilService } from '../utilService/util.service';
 import { telemetryType } from '../../sunbird-epub.constant';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,8 @@ export class ViwerService {
   public isAvailableLocally: boolean = false;
   constructor(
     private utilService: UtilService,
-    private epubPlayerService: EpubPlayerService
+    private epubPlayerService: EpubPlayerService,
+    private http: HttpClient
   ) { }
 
   initialize({ context, config, metadata }: PlayerConfig) {
@@ -141,10 +143,12 @@ export class ViwerService {
   }
 
   async isValidEpubSrc(src) {
-    return new Promise( async (resolve) =>{
-      window.fetch(src).then((res) =>{
-        resolve(res.ok);
-     })
+    return new Promise(async (resolve) => {
+      this.http.get(src, { responseType: 'blob' }).toPromise().then((res) =>{
+        resolve(true);
+      }).catch((error) => {
+        resolve(false);
+      })
     })
   }
 }

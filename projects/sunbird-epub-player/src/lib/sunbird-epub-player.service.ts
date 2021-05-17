@@ -130,6 +130,7 @@ export class EpubPlayerService {
 
   public error(errorCode: string, errorType: string , pageid , stacktrace ) {
     CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
+      options: this.getEventOptions(),
       edata: {
         err: errorCode || 'LOAD',
         errtype: errorType || 'content',
