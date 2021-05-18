@@ -132,8 +132,8 @@ export class EpubPlayerService {
     CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
       options: this.getEventOptions(),
       edata: {
-        err: errorCode || 'LOAD',
-        errtype: errorType || 'content',
+        err: errorCode,
+        errtype: errorType,
         stacktrace: stacktrace.toString(),
         pageid : pageid || ''
       }
