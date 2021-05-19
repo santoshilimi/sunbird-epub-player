@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { EpubPlayerComponent } from './sunbird-epub-player.component';
 import { EpubViewerComponent } from './epub-viewer/epub-viewer.component';
 import { SunbirdPlayerSdkModule  } from '@project-sunbird/sunbird-player-sdk-v8';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 
@@ -11,7 +12,8 @@ import { CommonModule } from '@angular/common';
   declarations: [EpubPlayerComponent, EpubViewerComponent],
   imports: [
     CommonModule,
-    SunbirdPlayerSdkModule
+    SunbirdPlayerSdkModule,
+    HttpClientModule
   ],
   exports: [EpubPlayerComponent]
 })

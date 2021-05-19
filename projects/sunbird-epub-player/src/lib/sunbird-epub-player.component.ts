@@ -22,6 +22,7 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
   public showControls = true;
+  showContentError: boolean;
   sideMenuConfig = {
     showShare: true,
     showDownload: true,
@@ -57,25 +58,31 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.telemetryEvent.emit(event.detail);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    // initializing services
+    this.viwerService.initialize(this.playerConfig);
+    this.epubPlayerService.initialize(this.playerConfig);
     this.traceId = this.playerConfig.config['traceId'];
-    this.showEpubViewer = true;
-    this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
-    this.getEpubLoadingProgress();
-    this.errorService.getInternetConnectivityError.subscribe(event => {
-      this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, errorMessage.internetConnectivity, event['error'], this.traceId)
-    });
 
+
+    // checks online error while loading epub
+    if(!navigator.onLine && !this.viwerService.isAvailableLocally){
+      this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex , errorMessage.internetConnectivity, this.traceId , new Error(errorMessage.internetConnectivity));
+    }
+
+    // checks content compatibility error
     const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible['isCompitable']) {
-        this.viwerService.raiseErrorEvent(checkContentCompatible['error'], 'compatibility-error');
-        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, errorMessage.contentCompatibility, checkContentCompatible['error'], this.traceId)
+        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex , errorCode.contentCompatibility , this.traceId ,  checkContentCompatible['error'])
       }
     }
-    this.epubPlayerService.initialize(this.playerConfig);
-    this.viwerService.initialize(this.playerConfig);
+
+    this.showEpubViewer = true;
+    this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
+    this.getEpubLoadingProgress();
+    
   }
 
   ngAfterViewInit() {
@@ -126,10 +133,9 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onEpubLoadFailed(error) {
-    this.viewState = this.fromConst.LOADING
-    this.viwerService.raiseErrorEvent(error);
-    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, errorMessage.contentLoadFails, error, this.traceId);
-    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, errorMessage.contentLoadFails, error, this.traceId);
+    this.showContentError = true;
+    this.viewState = this.fromConst.LOADING;
+    this.viwerService.raiseExceptionLog(error.errorCode, this.currentPageIndex, error.errorMessage, this.traceId, new Error(error.errorMessage));
   }
 
   replayContent(event) {

@@ -3,6 +3,7 @@ import { PlayerConfig } from '../../sunbird-epub-player.interface';
 import { EpubPlayerService } from '../../sunbird-epub-player.service';
 import { UtilService } from '../utilService/util.service';
 import { telemetryType } from '../../sunbird-epub.constant';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,11 @@ export class ViwerService {
   private metaData: any;
   public identifier: any;
   public artifactUrl: any;
+  public isAvailableLocally: boolean = false;
   constructor(
     private utilService: UtilService,
-    private epubPlayerService: EpubPlayerService
+    private epubPlayerService: EpubPlayerService,
+    private http: HttpClient
   ) { }
 
   initialize({ context, config, metadata }: PlayerConfig) {
@@ -37,7 +40,8 @@ export class ViwerService {
     this.contentName = metadata.name;
     this.identifier = metadata.identifier;
     this.artifactUrl = metadata.artifactUrl;
-    if (metadata.isAvailableLocally) {
+    this.isAvailableLocally = metadata.isAvailableLocally;
+    if (this.isAvailableLocally) {
       const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir)
       this.src = `${basePath}/${metadata.artifactUrl}`;
     } else {
@@ -124,33 +128,27 @@ export class ViwerService {
   }
 
 
-  raiseErrorEvent(error: Error, type?: string) {
-    const errorEvent = {
-      eid: 'ERROR',
-      ver: this.version,
-      edata: {
-        type: type || 'ERROR',
-        stacktrace: error ? error.toString() : ''
-      },
-      metaData: this.metaData
-    };
-    this.playerEvent.emit(errorEvent);
-    if (!type) {
-    this.epubPlayerService.error(error);
-    }
-  }
-
-  raiseExceptionLog(errorCode: string , errorType: string , stacktrace , traceId ) {
+  raiseExceptionLog(errorCode: string , pageIndex, errorType: string , traceId , stacktrace: Error ) {   
     const exceptionLogEvent = {
       eid: "ERROR",
       edata: {
           err: errorCode,
           errtype: errorType,
           requestid: traceId || '',
-          stacktrace: stacktrace || '',
+          stacktrace: stacktrace
       }
     }
     this.playerEvent.emit(exceptionLogEvent)
-    this.epubPlayerService.error(stacktrace, { err: errorCode, errtype: errorType });
+    this.epubPlayerService.error(errorCode ,errorType, pageIndex , stacktrace);
+  }
+
+  isValidEpubSrc(src) : Promise<Blob> {
+    return new Promise(async (resolve , reject) => {
+      this.http.get(src, { responseType: 'blob' }).toPromise().then((res) =>{
+        resolve(res);
+      }).catch((error) => {
+        reject(error);
+      })
+    })
   }
 }

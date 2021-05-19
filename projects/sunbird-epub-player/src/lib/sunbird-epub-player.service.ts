@@ -128,12 +128,14 @@ export class EpubPlayerService {
 
   }
 
-  public error(error: Error, eData?: { err: string, errtype: string }) {
+  public error(errorCode: string, errorType: string , pageid , stacktrace ) {
     CsTelemetryModule.instance.telemetryService.raiseErrorTelemetry({
+      options: this.getEventOptions(),
       edata: {
-        err: error || 'LOAD',
-        errtype: error || 'content',
-        stacktrace: (error && error.toString()) || ''
+        err: errorCode,
+        errtype: errorType,
+        stacktrace: stacktrace.toString(),
+        pageid : pageid || ''
       }
     });
   }
