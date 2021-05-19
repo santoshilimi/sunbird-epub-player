@@ -135,7 +135,7 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   onEpubLoadFailed(error) {
     this.showContentError = true;
     this.viewState = this.fromConst.LOADING;
-    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, this.currentPageIndex, errorMessage.contentLoadFails, this.traceId, new Error(errorMessage.contentLoadFails));
+    this.viwerService.raiseExceptionLog(error.errorCode, this.currentPageIndex, error.errorMessage, this.traceId, new Error(error.errorMessage));
   }
 
   replayContent(event) {

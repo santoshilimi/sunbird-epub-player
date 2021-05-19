@@ -2,6 +2,8 @@ import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, O
 import Epub from 'epubjs';
 import { ViwerService } from '../services/viewerService/viwer-service';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
+import { errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
+
 @Component({
   selector: 'epub-viewer',
   templateUrl: './epub-viewer.component.html',
@@ -54,7 +56,8 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
       this.rendition.on('displayError', (error) => {
         this.viewerEvent.emit({
           type: fromConst.ERROR,
-          err: error || fromConst.UNABLE_TO_FETCH_URL_ONLINE
+          errorCode: errorCode.contentLoadFails,
+          errorMessage: errorMessage.contentLoadFails
         })
       })
 
@@ -108,7 +111,8 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
     } catch (error) {
       this.viewerEvent.emit({
         type: fromConst.ERROR,
-        err: error || fromConst.UNABLE_TO_FETCH_URL_ONLINE
+        errorCode: errorCode.contentLoadFails,
+        errorMessage: errorMessage.contentLoadFails
       })
     }
   }
