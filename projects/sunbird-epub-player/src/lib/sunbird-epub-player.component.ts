@@ -62,12 +62,8 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     // initializing services
     this.viwerService.initialize(this.playerConfig);
     this.epubPlayerService.initialize(this.playerConfig);
+    this.traceId = this.playerConfig.config['traceId'];
 
-    // check content specific error
-    if (!await this.viwerService.isValidEpubSrc(this.viwerService.src)) {
-      this.showContentError = true;
-      this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, this.currentPageIndex, errorMessage.contentLoadFails, this.traceId, new Error(errorMessage.contentLoadFails));
-    };
 
     // checks online error while loading epub
     if(!navigator.onLine && !this.viwerService.isAvailableLocally){
@@ -83,7 +79,6 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
 
-    this.traceId = this.playerConfig.config['traceId'];
     this.showEpubViewer = true;
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.getEpubLoadingProgress();
@@ -138,8 +133,9 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onEpubLoadFailed(error) {
-    this.viewState = this.fromConst.LOADING
-    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails,this.currentPageIndex ,  errorMessage.contentLoadFails,this.traceId, error);
+    this.showContentError = true;
+    this.viewState = this.fromConst.LOADING;
+    this.viwerService.raiseExceptionLog(errorCode.contentLoadFails, this.currentPageIndex, errorMessage.contentLoadFails, this.traceId, new Error(errorMessage.contentLoadFails));
   }
 
   replayContent(event) {

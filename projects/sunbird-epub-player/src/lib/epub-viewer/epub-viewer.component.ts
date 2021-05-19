@@ -1,5 +1,6 @@
 import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
 import Epub from 'epubjs';
+import { ViwerService } from '../services/viewerService/viwer-service';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 @Component({
   selector: 'epub-viewer',
@@ -17,12 +18,22 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() actions = new EventEmitter<any>();
   @Output() viewerEvent = new EventEmitter<any>();
   idForRendition: any;
+  epubBlob: Object;
+  
+  constructor(
+    public viwerService: ViwerService
+  ){}
   ngOnInit() {
     this.idForRendition = `${this.identifier}-content`;
   }
   async ngAfterViewInit() {
     try {
-      this.eBook = Epub(this.epubSrc);
+      if (!this.viwerService.isAvailableLocally) {
+        this.epubBlob = await this.viwerService.isValidEpubSrc(this.epubSrc);
+        this.eBook = Epub(this.epubBlob);
+      } else if(this.viwerService.isAvailableLocally) {
+        this.eBook = Epub(this.epubSrc);
+      }
       this.rendition = this.eBook.renderTo(this.idForRendition, {
         flow: "paginated",
         width: this.epubViewer.nativeElement.offsetWidth,
@@ -39,6 +50,13 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
           this.scrolled = false;
         }
       });
+
+      this.rendition.on('displayError', (error) => {
+        this.viewerEvent.emit({
+          type: fromConst.ERROR,
+          err: error || fromConst.UNABLE_TO_FETCH_URL_ONLINE
+        })
+      })
 
       const spine = await this.eBook.loaded.spine;
 

@@ -142,12 +142,12 @@ export class ViwerService {
     this.epubPlayerService.error(errorCode ,errorType, pageIndex , stacktrace);
   }
 
-  async isValidEpubSrc(src) {
-    return new Promise(async (resolve) => {
+  async isValidEpubSrc(src) : Promise<Blob> {
+    return new Promise(async (resolve , reject) => {
       this.http.get(src, { responseType: 'blob' }).toPromise().then((res) =>{
-        resolve(true);
+        resolve(res);
       }).catch((error) => {
-        resolve(false);
+        reject(error);
       })
     })
   }
