@@ -1,6 +1,6 @@
 {
   "name": "@project-sunbird/sunbird-epub-player-v8",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "peerDependencies": {
     "@angular/common": "^8.2.14",
     "@angular/core": "^8.2.14",
@@ -13,5 +13,12 @@
   "devDependencies": {
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7"
-  }
+  },
+  "homepage": "https://github.com/project-sunbird/sunbird-epub-player/tree/release-4.0.0/projects/sunbird-epub-player#readme",
+  "keywords": [
+    "sunbird",
+    "sunbird epub player",
+    "project-sunbird"
+  ],
+  "license": "MIT"
 }
