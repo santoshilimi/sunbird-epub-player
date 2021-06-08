@@ -4,14 +4,16 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build sunbird-epub-player --watch=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-lib": "ng build sunbird-epub-player && node assets-copy.js",
     "link-player": "cd dist/sunbird-epub-player && npm link && cd ../.. && npm link @project-sunbird/sunbird-epub-player-v8",
     "build-lib-link": "npm run build-lib && npm run link-player",
-    "lib-test": "ng test sunbird-epub-player"
+    "lib-test": "ng test sunbird-epub-player",
+    "mybuild": "npm run build",
+    "serve": "node assets-copy.js && npm link ./dist/sunbird-epub-player && ng serve"
   },
   "private": true,
   "dependencies": {
