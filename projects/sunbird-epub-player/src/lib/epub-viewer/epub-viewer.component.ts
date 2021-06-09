@@ -40,7 +40,7 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
         flow: "paginated",
         width: this.epubViewer.nativeElement.offsetWidth,
         height: this.epubViewer.nativeElement.offsetHeight
-      }).catch();
+      });
       this.rendition.display();
       this.rendition.on("layout", (layout) => {
         if (this.eBook.navigation.length > 2) {
