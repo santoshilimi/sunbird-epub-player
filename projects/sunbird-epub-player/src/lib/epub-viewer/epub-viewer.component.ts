@@ -2,8 +2,7 @@ import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, O
 import Epub from 'epubjs';
 import { ViwerService } from '../services/viewerService/viwer-service';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
-import { errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
-
+import { errorCode , errorMessage } from '@project-sunbird/sunbird-player-sdk-v9';
 @Component({
   selector: 'epub-viewer',
   templateUrl: './epub-viewer.component.html',
