@@ -3,7 +3,7 @@ import { ViwerService } from './services/viewerService/viwer-service';
 import { PlayerConfig } from './sunbird-epub-player.interface';
 import { EpubPlayerService } from './sunbird-epub-player.service';
 import { epubPlayerConstants, telemetryType } from './sunbird-epub.constant';
-import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v8';
+import { ErrorService, errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v9';
 import { UtilService } from './services/utilService/util.service';
 
 
