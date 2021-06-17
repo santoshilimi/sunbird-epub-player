@@ -4,14 +4,16 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build sunbird-epub-player --watch=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-lib": "ng build sunbird-epub-player && node assets-copy.js",
-    "link-player": "cd dist/sunbird-epub-player && npm link && cd ../.. && npm link @project-sunbird/sunbird-epub-player-v8",
+    "link-player": "cd dist/sunbird-epub-player && npm link && cd ../.. && npm link @project-sunbird/sunbird-epub-player-v9",
     "build-lib-link": "npm run build-lib && npm run link-player",
-    "lib-test": "ng test sunbird-epub-player"
+    "lib-test": "ng test sunbird-epub-player",
+    "mybuild": "npm run build",
+    "serve": "node assets-copy.js && npm link ./dist/sunbird-epub-player && ng serve"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +28,7 @@
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7",
     "@project-sunbird/telemetry-sdk": "0.0.26",
+    "@project-sunbird/sunbird-epub-player-v9": "4.1.0",
     "epubjs": "^0.3.88",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

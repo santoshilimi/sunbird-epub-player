@@ -40,7 +40,7 @@ export class EpubPlayerService {
       const telemetryConfig: any =  {
         config: {
           pdata: context.pdata,
-          env: 'ContentPlayer',
+          env: 'contentplayer',
           channel: context.channel,
           did: context.did,
           authtoken: context.authToken || '',
@@ -52,7 +52,8 @@ export class EpubPlayerService {
           endpoint: context.endpoint || '/data/v3/telemetry',
           tags: context.tags,
           cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
-          { id: this.playSessionId, type: 'PlaySession' }],
+          { id: this.playSessionId, type: 'PlaySession' },
+          {id: "2.0" , type: "PlayerVersion"}],
         },
         userOrgDetails: {}
       };
@@ -146,11 +147,12 @@ export class EpubPlayerService {
       context: {
         channel: this.channel,
         pdata: this.pdata,
-        env: 'ContentPlayer',
+        env: 'contentplayer',
         sid: this.sid,
         uid: this.uid,
         cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
-        { id: this.playSessionId, type: 'PlaySession' }],
+        { id: this.playSessionId, type: 'PlaySession' },
+        {id: "2.0" , type: "PlayerVersion"}],
         rollup: this.rollup || {}
       }
     });
