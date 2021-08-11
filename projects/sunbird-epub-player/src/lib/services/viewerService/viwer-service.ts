@@ -23,7 +23,7 @@ export class ViwerService {
   public showDownloadPopup: boolean;
   public src: string;
   public userName: string;
-  private metaData: any;
+  public metaData: any;
   public identifier: any;
   public artifactUrl: any;
   public isAvailableLocally: boolean = false;
