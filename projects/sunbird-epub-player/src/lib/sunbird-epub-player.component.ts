@@ -117,12 +117,21 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     clearInterval(this.intervalRef);
     this.viewState = this.fromConst.START;
     this.viwerService.raiseStartEvent(event.data);
+
+    if (this.playerConfig.config?.pagesVisited?.length && this.playerConfig.config?.currentLocation) {
+      this.currentPageIndex = this.playerConfig.config.pagesVisited[this.playerConfig.config.pagesVisited.length - 1];
+    }
+    this.viwerService.metaData.pagesVisited.push(this.currentPageIndex);
   }
 
   onPageChange(event) {
+    if (event?.data?.index) {
+      this.currentPageIndex = event.data.index;
+    }
     this.currentPageIndex = this.utilService.getCurrentIndex(event, this.currentPageIndex);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.IMPRESSION);
+    this.viwerService.metaData.pagesVisited.push(this.currentPageIndex);
   }
 
   onEpubEnded(event) {
@@ -142,6 +151,7 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.currentPageIndex = 1;
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     this.viewState = this.fromConst.START;
+    this.viwerService.metaData.pagesVisited.push(this.currentPageIndex);
     this.ngOnInit();
   }
 

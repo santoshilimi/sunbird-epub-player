@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'epubLibraryDemo';
+  epubMetaDataConfig: any = JSON.parse(localStorage.getItem('config')) || {};
   config = {
+   ... {
     traceId: '123456',
     sideMenu: {
       showShare: true,
@@ -15,7 +17,8 @@ export class AppComponent {
       showReplay: false,
       showExit: false,
     }
-  }
+   }, ...this.epubMetaDataConfig
+  };
   epubPlayerConfig = {
     context: {
       mode: 'play',
@@ -58,7 +61,23 @@ export class AppComponent {
     console.log('in app: ', JSON.stringify(event));
   }
 
-  pdfEventHandler(event) {
+  playerEvent(event) {
     console.log('player event in app', JSON.stringify(event));
+    if (event.eid === 'END') {
+      this.epubMetaDataConfig = event?.metaData || {};
+      localStorage.setItem('config', JSON.stringify(this.epubMetaDataConfig));
+      this.config = {
+        ...{
+          traceId: 'afhjgh',
+          sideMenu: {
+            showShare: true,
+            showDownload: true,
+            showReplay: true,
+            showExit: true
+          }
+        }, ...this.epubMetaDataConfig
+      };
+      this.epubPlayerConfig.config = this.config;
+    }
   }
 }
