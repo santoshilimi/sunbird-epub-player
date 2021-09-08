@@ -14,7 +14,7 @@
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7"
   },
-  "homepage": "https://github.com/project-sunbird/sunbird-epub-player/tree/release-4.0.0/projects/sunbird-epub-player#readme",
+  "homepage": "https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.3.0/README.md",
   "keywords": [
     "sunbird",
     "sunbird epub player",
