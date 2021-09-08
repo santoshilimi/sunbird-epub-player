@@ -1,94 +1,105 @@
-# Sunbird Epub Player
-Player for playing Epub contents for sunbird applications
+# Epub player library for Sunbird platform!
+Contains Epub player library components powered by angular. These components are designed to be used in sunbird consumption platforms *(mobile app, web portal, offline desktop app)* to drive reusability, maintainability hence reducing the redundant development effort significantly.
 
-## Prerequisite
+# Getting Started
+For help getting started with a new Angular app, check out the Angular CLI.
+For existing apps, follow these steps to begin using .
 
-  Node version > 12
+## Step 1: Install the packages
 
-## Usage
+    npm install @project-sunbird/sunbird-epub-player-v9 --save
+    npm install @project-sunbird/sb-styles --save
+    npm install @project-sunbird/client-services --save
+    npm install epubjs --save
 
+## Step 2: Include the styles, scripts and assets in angular.json
+    "styles": [
+    ...
+    ...
+    "src/styles.css",
+    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
+    ],
+    "scripts": [
+    ...
+    ...
+    "node_modules/epubjs/dist/epub.js"
+    ]
 
-`npm i @project-sunbird/sunbird-epub-player-v9`
+  Add following under architect.build.assets
 
+     {
+	    ...
+	    "build": {
+	    
+	    "builder": "@angular-devkit/build-angular:browser",
+	    
+	    "options": {
+		    ...
+		    ...
+    
+		    "assets": [
+		    
+			   ...
+			   ...
+			    
+			    {
+				    "glob": "**/*.*",
+				    "input": "./node_modules/@project-sunbird/sunbird-epub-player-v9/lib/assets/",
+				    "output": "/assets/"
+			    }
+		    
+		    ],
+    
+	    "styles": [
+	    
+	    ...
+	    
+	    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
+	    ],
+	    "scripts": [
+         ...
+         "node_modules/epubjs/dist/epub.js"
+         ]
+	    ...
+	    ...
+    
+    },
 
-Add the module to the your player root module 
-
-`import  { SunbirdEpubPlayerModule } from '@project-sunbird/sunbird-epub-player-v9';`
-
-```javascript
-@NgModule({
-  ...
-  imports: [
-    ...,
-    SunbirdEpubPlayerModule
-  ]
-})
-```
-
-add the assets, scripts and styles in angular.json file
-
-```javascript
-....
- "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              {
-                "glob": "**/*",
-                "input": "node_modules/@project-sunbird/sunbird-epub-player-v9/lib/assets/",
-                "output": "/assets/"
-              }
-],
-  "scripts": [
-  ...
-    "./node_modules/epubjs/dist/epub.js",
-    "node_modules/@project-sunbird/telemetry-sdk/index.js"
-    ....
-  ],
   
-"styles": [
-...
-"./node_modules/@project-sunbird/sb-styles/assets/_styles.scss",
-"src/styles.css"
-....
-],
-...
 
-```
+## Step 3: Import the modules and components
+Import the NgModule where you want to use.
+       
+    import { SunbirdEpubPlayerModule } from '@project-sunbird/sunbird-epub-player-v9';
 
-add peer dependecies of the player as dependecies in your project
- 
+    
+    @NgModule({
+	    ...
+	    
+	    imports: [SunbirdEpubPlayerModule]
+	    
+	    ...
+    })
 
-add the component selector in your component like below
+  
+    export class TestAppModule { }
+    
+## Step 4: Add css in global styles
 
-```html
-
-    <sunbird-epub-player [playerConfig]="epubPlayerConfig" 
-                         (playerEvent)="playerEventHandler($event)"
-                         (telemetryEvent)="telemetryEvent($event)">
-    </sunbird-epub-player>
-
-```
-
-Still facing issues please refer the demo project in this repo as example
-
-## Development
-
-  check out this repo with latest release version branch
-
-  cd to {repo_path} in terminal
-
-  run  `sh setup.sh`
-
-  above script installs the dependecies and link the epub player library project to demo app
-
-  if you do any changes in library project run to get latest changes in demo app
-
-  `npm run build-lib-link`
-
-  once above command completed run `npm run start` which will run the player in demo app at http://localhost:4200
+    body {
+        background-color: white;
+        height: 100%;
+    }
+    html {
+        height: 100%;
+    }
 
 
+## Step 5: Send input to render Epub player
+Use the mock config in your component to send input to Epub player
+Click to see the mock - [playerConfig](../../src/app/data.ts)
 
-## References
-
-http://epubjs.org/documentation/0.3/#epubjs
+## Available components
+|Feature| Notes| Selector|Code|Input|Output
+|--|--|--|------------------------------------------------------------------------------------------|---|--|
+| Epub Player | Can be used to render epub | sunbird-epub-player| *`<sunbird-epub-player [playerConfig]="playerConfig"><sunbird-epub-player>`*|playerConfig|playerEvent, telemetryEvent|
