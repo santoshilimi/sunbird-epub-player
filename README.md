@@ -44,7 +44,7 @@ For existing apps, follow these steps to begin using .
 			    
 			    {
 				    "glob": "**/*.*",
-				    "input": "./node_modules/@project-sunbird/sunbird-video-player-v9/lib/assets/",
+				    "input": "./node_modules/@project-sunbird/sunbird-epub-player-v9/lib/assets/",
 				    "output": "/assets/"
 			    }
 		    
