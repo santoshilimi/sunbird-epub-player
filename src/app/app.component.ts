@@ -9,15 +9,16 @@ export class AppComponent {
   title = 'epubLibraryDemo';
   epubMetaDataConfig: any = JSON.parse(localStorage.getItem('config')) || {};
   config = {
-   ... {
-    traceId: '123456',
-    sideMenu: {
-      showShare: true,
-      showDownload: true,
-      showReplay: false,
-      showExit: false,
-    }
-   }, ...this.epubMetaDataConfig
+    ... {
+      traceId: '123456',
+      sideMenu: {
+        showShare: true,
+        showDownload: true,
+        showReplay: false,
+        showExit: false,
+      }
+    },
+    ...this.epubMetaDataConfig
   };
   epubPlayerConfig = {
     context: {
@@ -56,6 +57,7 @@ export class AppComponent {
 
     data: {}
   };
+  showFullScreen = false;
 
   telemetryEvent(event) {
     console.log('in app: ', JSON.stringify(event));
@@ -75,7 +77,8 @@ export class AppComponent {
             showReplay: true,
             showExit: true
           }
-        }, ...this.epubMetaDataConfig
+        },
+        ...this.epubMetaDataConfig
       };
       this.epubPlayerConfig.config = this.config;
     }

@@ -1,4 +1,5 @@
-import { EventEmitter, Component, Output, Input, OnInit, HostListener, OnDestroy, ElementRef, ViewChild, AfterViewInit, Renderer2 } from '@angular/core';
+import { EventEmitter, Component, Output, Input, OnInit, HostListener, 
+  OnDestroy, ElementRef, ViewChild, AfterViewInit, Renderer2, OnChanges, SimpleChanges } from '@angular/core';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { PlayerConfig } from './sunbird-epub-player.interface';
 import { EpubPlayerService } from './sunbird-epub-player.service';
@@ -12,10 +13,11 @@ import { UtilService } from './services/utilService/util.service';
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss']
 })
-export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   fromConst = epubPlayerConstants;
   @ViewChild('epubPlayer', { static: true }) epubPlayerRef: ElementRef;
   @Input() playerConfig: PlayerConfig;
+  @Input() showFullScreen = false;
   @Output() headerActionsEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() telemetryEvent: EventEmitter<any> = new EventEmitter<any>();
   @Output() playerEvent: EventEmitter<object>;
@@ -66,8 +68,8 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
     // checks online error while loading epub
-    if(!navigator.onLine && !this.viwerService.isAvailableLocally){
-      this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex , errorMessage.internetConnectivity, this.traceId , new Error(errorMessage.internetConnectivity));
+    if (!navigator.onLine && !this.viwerService.isAvailableLocally) {
+      this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex, errorMessage.internetConnectivity, this.traceId, new Error(errorMessage.internetConnectivity));
     }
 
     // checks content compatibility error
@@ -75,16 +77,23 @@ export class EpubPlayerComponent implements OnInit, OnDestroy, AfterViewInit {
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible['isCompitable']) {
-        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex , errorCode.contentCompatibility , this.traceId ,  checkContentCompatible['error'])
+        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex, errorCode.contentCompatibility, this.traceId, checkContentCompatible['error'])
       }
     }
 
     this.showEpubViewer = true;
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.getEpubLoadingProgress();
-    
+
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // console.log('changes', changes);
+    if (changes.showFullScreen && !changes?.showFullScreen?.firstChange) {
+      // console.log('changes', changes);
+      this.showFullScreen = changes.showFullScreen.currentValue;
+    }
+  }
   ngAfterViewInit() {
     const epubPlayerElement = this.epubPlayerRef.nativeElement;
     this.unlistenMouseEnter = this.renderer2.listen(epubPlayerElement, 'mouseenter', () => {
