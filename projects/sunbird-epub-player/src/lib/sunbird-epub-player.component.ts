@@ -88,9 +88,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log('changes', changes);
     if (changes.showFullScreen && !changes?.showFullScreen?.firstChange) {
-      // console.log('changes', changes);
       this.showFullScreen = changes.showFullScreen.currentValue;
     }
   }
