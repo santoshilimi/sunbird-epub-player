@@ -1,4 +1,5 @@
-import { AfterViewInit, ViewChild, Component, ElementRef, Input, EventEmitter, Output, OnInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, ViewChild, Component, ElementRef, Input, 
+  EventEmitter, Output, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import Epub from 'epubjs';
 import { ViwerService } from '../services/viewerService/viwer-service';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
@@ -8,7 +9,7 @@ import { errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v9'
   templateUrl: './epub-viewer.component.html',
   styleUrls: ['./epub-viewer.component.css']
 })
-export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
+export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   eBook: any;
   rendition: any;
   lastSection: any;
@@ -18,6 +19,7 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() config: any;
   @Input() identifier: string;
   @Input() actions = new EventEmitter<any>();
+  @Input() showFullScreen = false;
   @Output() viewerEvent = new EventEmitter<any>();
   idForRendition: any;
   epubBlob: object;
@@ -28,6 +30,13 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.idForRendition = `${this.identifier}-content`;
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.rendition && !changes?.showFullScreen?.firstChange) {
+      this.rendition.resize();
+    }
+  }
+
   async ngAfterViewInit() {
     try {
       if (!this.viwerService.isAvailableLocally) {
@@ -38,8 +47,8 @@ export class EpubViewerComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       this.rendition = this.eBook.renderTo(this.idForRendition, {
         flow: 'paginated',
-        width: this.epubViewer.nativeElement.offsetWidth,
-        height: this.epubViewer.nativeElement.offsetHeight
+        width: '100%',
+        height: '100%'
       });
       this.rendition.on('layout', (layout) => {
         if (this.eBook.navigation.length > 2) {
