@@ -85,15 +85,15 @@ Import the NgModule where you want to use. Also create a [question-cursor-implem
     export class TestAppModule { }
     
 ## Step 4: Add css in global styles
-
-    body {
-        background-color: white;
-        height: 100%;
-    }
-    html {
-        height: 100%;
-    }
-
+```css
+body {
+    background-color: white;
+    height: 100%;
+}
+html {
+    height: 100%;
+}
+```
 
 ## Step 5: Send input to render Epub player
 Use the mock config in your component to send input to Epub player
