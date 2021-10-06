@@ -6,12 +6,12 @@ For help getting started with a new Angular app, check out the Angular CLI.
 For existing apps, follow these steps to begin using .
 
 ## Step 1: Install the packages
-    ```bash
-    npm install @project-sunbird/sunbird-epub-player-v9 --save
-    npm install @project-sunbird/sb-styles --save
-    npm install @project-sunbird/client-services --save
-    npm install epubjs --save
-    ```
+```bash
+npm install @project-sunbird/sunbird-epub-player-v9 --save
+npm install @project-sunbird/sb-styles --save
+npm install @project-sunbird/client-services --save
+npm install epubjs --save
+```
 ## Step 2: Include the styles, scripts and assets in angular.json
     "styles": [
     ...
