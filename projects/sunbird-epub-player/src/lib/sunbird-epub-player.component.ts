@@ -61,6 +61,14 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   }
 
   async ngOnInit() {
+    if (typeof this.playerConfig === 'string') {
+      try {
+        this.playerConfig = JSON.parse(this.playerConfig);
+      } catch (error) {
+        console.error('Invalid playerConfig: ', error);
+      }
+    }
+
     // initializing services
     this.viwerService.initialize(this.playerConfig);
     this.epubPlayerService.initialize(this.playerConfig);
