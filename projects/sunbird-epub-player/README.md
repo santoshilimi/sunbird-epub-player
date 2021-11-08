@@ -110,11 +110,11 @@ Any web application can use this library as a web component. It accepts couple o
 
 Follow below-mentioned steps to use it in plain javascript project:
 
-- Insert [library](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.4.0/web-component/sunbird-epub-player.js) as below:
+- Insert [library](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/sunbird-epub-player.js) as below:
 	```javascript
 	<script type="text/javascript" src="sunbird-epub-player.js"></script>
 	```
-- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.4.0/src/app/data.ts)
+- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/src/app/data.ts)
 
 - Create a custom html element: `sunbird-epub-player`
 	```javascript
@@ -143,8 +143,8 @@ Follow below-mentioned steps to use it in plain javascript project:
 	const  myPlayer = document.getElementById("my-player");
 	myPlayer.appendChild(epubPlayerElement);
 	```
-- Refer demo [example](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.4.0/web-component/index.html)
+- Refer demo [example](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/index.html)
 
 - To run the project, we can directly run index.html file or can use local server to run the project.
 
-- ![demo](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.4.0/web-component/epub-player-wc.png)
+- ![demo](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/epub-player-wc.png)
