@@ -51,6 +51,7 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
         height: '100%'
       });
       this.rendition.on('layout', (layout) => {
+        this.viwerService.totalNumberOfPages = this.eBook?.navigation?.length;
         if (this.eBook.navigation.length > 2) {
           this.rendition.spread('none');
           this.rendition.flow('scrolled');

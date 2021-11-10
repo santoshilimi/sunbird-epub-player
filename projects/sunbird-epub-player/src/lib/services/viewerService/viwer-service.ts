@@ -110,13 +110,15 @@ export class ViwerService {
       this.endPageSeen = true
     } 
     const duration = new Date().getTime() - this.epubPlayerStartTime;
+    this.metaData.duration = duration;
+    this.metaData.totalPages = this.totalNumberOfPages;
     const endEvent = {
       eid: 'END',
       ver: this.version,
       edata: {
         type: 'END',
         currentPage: event.data.index,
-        totalPages: this.currentIndex,
+        totalPages: this.totalNumberOfPages,
         duration
       },
       metaData: this.metaData
