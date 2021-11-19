@@ -10,7 +10,7 @@
         <sb-player-sidebar [title]="viwerService.contentName" (sidebarEvent)="sideBarEvents($event)"
             [config]="sideMenuConfig"></sb-player-sidebar>
         <div class="sb-epub-reading-status">
-            Location {{currentPageIndex}} 
+            Location {{currentPageIndex}} of {{viwerService.totalNumberOfPages}} <span></span> {{((currentPageIndex/viwerService.totalNumberOfPages) * 100).toFixed(0)}}%
         </div>
         
     </ng-container>
