@@ -88,6 +88,7 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
     this.eBook.ready.then(() => {
       return this.eBook.locations.generate(1000);
     }).then((locations) => {
+      this.viwerService.totalNumberOfPages = this.eBook?.spine?.length;
       if (currentLocation) {
         const cfi = this.eBook.locations.cfiFromPercentage(Number(currentLocation));
         this.rendition.display(cfi);

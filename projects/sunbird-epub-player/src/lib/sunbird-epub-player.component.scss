@@ -25,6 +25,15 @@
     padding: .25em .5rem;
     z-index: 5;
     line-height: normal;
+
+    span {
+      background: var(--gray-800);
+      width: 4px;
+      height: 4px;
+      display: block;
+      margin: 0px 0.5em;
+      border-radius: 50%;
+    }
 }
 
 .notVisible,
