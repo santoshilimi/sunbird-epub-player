@@ -8,6 +8,8 @@ export enum epubPlayerConstants {
     PREVIOUS = 'PREVIOUS',
     ERROR = 'error',
     UNABLE_TO_FETCH_URL_ONLINE = 'Internet is avialable but unable to fetch the url',
+    NAVIGATE_TO_PAGE = 'NAVIGATE_TO_PAGE',
+    INVALID_PAGE_ERROR = 'INVALID_PAGE_ERROR'
 
 }
 

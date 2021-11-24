@@ -97,7 +97,8 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
   }
 
   handleActions(spine) {
-    this.actions.subscribe((type) => {
+    this.actions.subscribe((event) => {
+      const type = event.type;
       if (this.rendition?.location?.start) {
         const data = this.rendition.location.start;
         if (this.scrolled && data.href === this.lastSection.href) {
@@ -128,6 +129,22 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
               data,
               interaction: fromConst.PREVIOUS
             });
+          });
+        }
+        if (type === fromConst.NAVIGATE_TO_PAGE) {
+          this.rendition.display(event.data);
+          this.viewerEvent.emit({
+            type: fromConst.NAVIGATE_TO_PAGE,
+            event,
+            interaction: fromConst.NAVIGATE_TO_PAGE
+          });
+        }
+
+        if (type === fromConst.INVALID_PAGE_ERROR) {
+          this.viewerEvent.emit({
+            type: fromConst.INVALID_PAGE_ERROR,
+            event,
+            interaction: fromConst.INVALID_PAGE_ERROR
           });
         }
       }

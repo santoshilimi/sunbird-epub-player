@@ -24,6 +24,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   private unlistenMouseEnter: () => void;
   private unlistenMouseLeave: () => void;
   public showControls = true;
+  public validPage = true;
   showContentError: boolean;
   sideMenuConfig = {
     showShare: true,
@@ -40,7 +41,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   currentPageIndex = 1;
   headerConfiguration = {
     rotation: false,
-    goto: false,
+    goto: true,
     navigation: true,
     zoom: false
   }
@@ -111,21 +112,36 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
     });
   }
 
-  headerActions(event) {
-    this.headerActionsEvent.emit(event.type);
+  headerActions(eventdata) {
+    this.headerActionsEvent.emit(eventdata);
   }
 
   viewerEvent(event) {
     if (event.type === this.fromConst.EPUBLOADED) {
-      this.onEpubLoaded(event)
+      this.onEpubLoaded(event);
     }
     if (event.type === this.fromConst.PAGECHANGE) {
       this.onPageChange(event);
-    } if (event.type === this.fromConst.END) {
-      this.onEpubEnded(event);
-    } if (event.type === this.fromConst.ERROR) {
-      this.onEpubLoadFailed(event)
     }
+    if (event.type === this.fromConst.END) {
+      this.onEpubEnded(event);
+    }
+    if (event.type === this.fromConst.ERROR) {
+      this.onEpubLoadFailed(event);
+    }
+    if (event.type === this.fromConst.NAVIGATE_TO_PAGE) {
+      this.onJumpToPage(event);
+    }
+    if (event.type === this.fromConst.INVALID_PAGE_ERROR) {
+      this.validPage = event.data;
+      this.resetValidPage();
+    }
+  }
+
+  resetValidPage() {
+    setTimeout(() => {
+      this.validPage = true;
+    }, 5000);
   }
 
   onEpubLoaded(event) {
@@ -146,6 +162,13 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
     this.currentPageIndex = this.utilService.getCurrentIndex(event, this.currentPageIndex);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.IMPRESSION);
+    this.viwerService.metaData.pagesVisited.push(this.currentPageIndex);
+  }
+
+  onJumpToPage(type) {
+    this.currentPageIndex = type?.event?.data;
+    this.viwerService.raiseHeartBeatEvent(type, telemetryType.INTERACT);
+    this.viwerService.raiseHeartBeatEvent(type, telemetryType.IMPRESSION);
     this.viwerService.metaData.pagesVisited.push(this.currentPageIndex);
   }
 
