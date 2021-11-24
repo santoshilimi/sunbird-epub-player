@@ -108,18 +108,19 @@ export class ViwerService {
     if (!this.isEndEventRaised) {
       this.currentIndex = event.data.index;
       const percentage = event.data.percentage || 0
-
       if(event.data.percentage) {
-         this.endPageSeen = true
+        this.endPageSeen = true
       } 
       const duration = new Date().getTime() - this.epubPlayerStartTime;
+      this.metaData.duration = duration;
+      this.metaData.totalPages = this.totalNumberOfPages;
       const endEvent = {
-          eid: 'END',
+        eid: 'END',
         ver: this.version,
         edata: {
           type: 'END',
           currentPage: event.data.index,
-          totalPages: this.currentIndex,
+          totalPages: this.totalNumberOfPages,
           duration
         },
         metaData: this.metaData
