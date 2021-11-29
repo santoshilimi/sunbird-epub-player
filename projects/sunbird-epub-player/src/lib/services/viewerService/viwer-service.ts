@@ -27,6 +27,7 @@ export class ViwerService {
   public identifier: any;
   public artifactUrl: any;
   public isAvailableLocally: boolean = false;
+  public isEndEventRaised = false;
   constructor(
     private utilService: UtilService,
     private epubPlayerService: EpubPlayerService,
@@ -104,29 +105,31 @@ export class ViwerService {
   }
 
   raiseEndEvent(event) {
-    this.currentIndex = event.data.index;
-    const percentage = event.data.percentage || 0
-    if(event.data.percentage) {
-      this.endPageSeen = true
-    } 
-    const duration = new Date().getTime() - this.epubPlayerStartTime;
-    this.metaData.duration = duration;
-    this.metaData.totalPages = this.totalNumberOfPages;
-    const endEvent = {
-      eid: 'END',
-      ver: this.version,
-      edata: {
-        type: 'END',
-        currentPage: event.data.index,
-        totalPages: this.totalNumberOfPages,
-        duration
-      },
-      metaData: this.metaData
-    };
-    this.playerEvent.emit(endEvent);
-    const visitedlength = this.currentIndex;
-    this.timeSpent = this.utilService.getTimeSpentText(this.epubPlayerStartTime);
-    this.epubPlayerService.end(duration, percentage, this.currentIndex, this.endPageSeen);
+    if (!this.isEndEventRaised) {
+      this.currentIndex = event.data.index;
+      const percentage = event.data.percentage || 0
+      if(event.data.percentage) {
+        this.endPageSeen = true
+      } 
+      const duration = new Date().getTime() - this.epubPlayerStartTime;
+      this.metaData.duration = duration;
+      this.metaData.totalPages = this.totalNumberOfPages;
+      const endEvent = {
+        eid: 'END',
+        ver: this.version,
+        edata: {
+          type: 'END',
+          currentPage: event.data.index,
+          totalPages: this.totalNumberOfPages,
+          duration
+        },
+        metaData: this.metaData
+      };
+      this.playerEvent.emit(endEvent);
+      const visitedlength = this.currentIndex;
+      this.timeSpent = this.utilService.getTimeSpentText(this.epubPlayerStartTime);
+      this.epubPlayerService.end(duration, percentage, this.currentIndex, this.endPageSeen);
+    }
   }
 
 

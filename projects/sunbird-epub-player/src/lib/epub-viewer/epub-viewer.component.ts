@@ -120,8 +120,7 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
               interaction: fromConst.NEXT
             });
           });
-        }
-        if (type === fromConst.PREVIOUS) {
+        } else if (type === fromConst.PREVIOUS) {
           this.rendition.prev().then(() => {
             this.saveCurrentLocation();
             this.viewerEvent.emit({
