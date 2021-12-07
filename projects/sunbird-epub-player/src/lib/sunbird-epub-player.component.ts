@@ -27,11 +27,11 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   public validPage = true;
   showContentError: boolean;
   sideMenuConfig = {
-    showShare: true,
-    showDownload: true,
+    showShare: false,
+    showDownload: false,
     showReplay: false,
     showExit: false,
-    showPrint: true
+    showPrint: false
   };
   viewState = this.fromConst.LOADING;
   intervalRef: any;
