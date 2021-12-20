@@ -29,7 +29,6 @@
     "@angular/router": "9.1.12",
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7",
-    "@project-sunbird/sunbird-epub-player-v9": "4.1.0",
     "@project-sunbird/telemetry-sdk": "0.0.26",
     "document-register-element": "^1.7.2",
     "epubjs": "^0.3.88",

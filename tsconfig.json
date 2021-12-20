@@ -7,7 +7,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -27,7 +27,13 @@
       ],
       "sunbird-epub-player/*": [
         "dist/sunbird-epub-player/*"
-      ]
+      ],
+      "@project-sunbird/sunbird-epub-player-v9": [
+        "dist/sunbird-epub-player"
+      ],
+      "@project-sunbird/sunbird-epub-player-v9/*": [
+        "dist/sunbird-epub-player/*"
+      ],
     }
   }
 }
