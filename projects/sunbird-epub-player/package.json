@@ -1,6 +1,6 @@
 {
   "name": "@project-sunbird/sunbird-epub-player-v9",
-  "version": "4.5.6",
+  "version": "4.6.0",
   "peerDependencies": {
     "@angular/common": ">=9.1.12",
     "@angular/core": ">=9.1.12",
@@ -9,10 +9,6 @@
   },
   "dependencies": {
     "@project-sunbird/sunbird-player-sdk-v9": "4.5.1"
-  },
-  "devDependencies": {
-    "@project-sunbird/client-services": "^3.4.8",
-    "@project-sunbird/sb-styles": "0.0.7"
   },
   "homepage": "https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/README.md",
   "repository": {
