@@ -25,7 +25,7 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/@project-sunbird/sunbird-epub-player/lib/assets/",
+                "input": "node_modules/@project-sunbird/sunbird-epub-player-v9/lib/assets/",
                 "output": "/assets/"
               }
             ],
