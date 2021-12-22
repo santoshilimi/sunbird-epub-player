@@ -31,7 +31,7 @@
     "@project-sunbird/sb-styles": "0.0.7",
     "@project-sunbird/telemetry-sdk": "0.0.26",
     "document-register-element": "^1.7.2",
-    "epubjs": "^0.3.88",
+    "epubjs": "0.3.88",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

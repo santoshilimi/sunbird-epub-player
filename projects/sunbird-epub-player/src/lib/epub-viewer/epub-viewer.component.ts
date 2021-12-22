@@ -52,7 +52,6 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
       this.rendition = this.eBook.renderTo(this.idForRendition, {
         flow: 'paginated',
         width: '100%',
-        height: '100%'
       });
       this.rendition.on('layout', (layout) => {
         this.viwerService.totalNumberOfPages = this.eBook?.navigation?.length;
