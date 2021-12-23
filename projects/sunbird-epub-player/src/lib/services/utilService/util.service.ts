@@ -33,5 +33,19 @@ export class UtilService {
     if (event['interaction'] === this.fromConst.PREVIOUS) {
       return currentPageIndex - 1 ==  0 ? 1 : currentPageIndex -1;
     }
-}
+  }
+
+  async fulfillWithTimeLimit(timeLimit: number, task: Promise<any>, failureValue: any): Promise<any> {
+    let timeout;
+    const timeoutPromise = new Promise((resolve, reject) => {
+      timeout = setTimeout(() => {
+        resolve(failureValue);
+      }, timeLimit);
+    });
+    const response = await Promise.race([task, timeoutPromise]);
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    return response;
+  }
 }

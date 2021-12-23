@@ -4,6 +4,9 @@ import Epub from 'epubjs';
 import { ViwerService } from '../services/viewerService/viwer-service';
 import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 import { errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v9';
+import { UtilService } from '../services/utilService/util.service';
+
+const MAX_TIME_TO_LOAD_SPINE = 5*60*1000; // 5 minutes
 @Component({
   selector: 'epub-viewer',
   templateUrl: './epub-viewer.component.html',
@@ -25,7 +28,8 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
   epubBlob: object;
 
   constructor(
-    public viwerService: ViwerService
+    public viwerService: ViwerService,
+    private utilService: UtilService
   ) { }
   ngOnInit() {
     this.idForRendition = `${this.identifier}-content`;
@@ -48,7 +52,6 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
       this.rendition = this.eBook.renderTo(this.idForRendition, {
         flow: 'paginated',
         width: '100%',
-        height: '100%'
       });
       this.rendition.on('layout', (layout) => {
         this.viwerService.totalNumberOfPages = this.eBook?.navigation?.length;
@@ -66,15 +69,19 @@ export class EpubViewerComponent implements OnInit, OnChanges, AfterViewInit, On
         this.emitErrorEvent();
       });
 
-      const spine = await this.eBook.loaded.spine;
-      this.displayEpub();
-      this.lastSection = spine.last();
-      this.viewerEvent.emit({
-        type: fromConst.EPUBLOADED,
-        data: spine
-      });
+      const spine = await this.utilService.fulfillWithTimeLimit(MAX_TIME_TO_LOAD_SPINE, this.eBook.loaded.spine, null);
 
-      this.handleActions(spine);
+      if (spine) {
+        this.displayEpub();
+        this.lastSection = spine.last();
+        this.viewerEvent.emit({
+          type: fromConst.EPUBLOADED,
+          data: spine
+        });
+        this.handleActions(spine);
+      } else {
+        this.emitErrorEvent();
+      }
     } catch (error) {
       this.emitErrorEvent();
     }
