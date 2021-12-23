@@ -6,7 +6,7 @@ import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 import { errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v9';
 import { UtilService } from '../services/utilService/util.service';
 
-const MAX_TIME_TO_LOAD_SPINE = 20000; // 20 seconds
+const MAX_TIME_TO_LOAD_SPINE = 5*60*1000; // 5 minutes
 @Component({
   selector: 'epub-viewer',
   templateUrl: './epub-viewer.component.html',
