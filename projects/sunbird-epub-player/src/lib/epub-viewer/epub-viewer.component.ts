@@ -1,4 +1,4 @@
-import { AfterViewInit, ViewChild, Component, ElementRef, Input, 
+import { AfterViewInit, ViewChild, Component, ElementRef, Input,
   EventEmitter, Output, OnInit, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import Epub from 'epubjs';
 import { ViwerService } from '../services/viewerService/viwer-service';
@@ -6,7 +6,7 @@ import { epubPlayerConstants as fromConst } from '../sunbird-epub.constant';
 import { errorCode, errorMessage } from '@project-sunbird/sunbird-player-sdk-v9';
 import { UtilService } from '../services/utilService/util.service';
 
-const MAX_TIME_TO_LOAD_SPINE = 5*60*1000; // 5 minutes
+const MAX_TIME_TO_LOAD_SPINE = 5 * 60 * 1000; // 5 minutes
 @Component({
   selector: 'epub-viewer',
   templateUrl: './epub-viewer.component.html',
