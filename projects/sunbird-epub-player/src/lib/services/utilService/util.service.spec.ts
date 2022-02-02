@@ -32,7 +32,7 @@ describe('UtilService', () => {
     expect(response).toBe(2);
   });
 
-  it('should return current index when previous', () => {
+  xit('should return current index when previous', () => {
     const service: UtilService = TestBed.get(UtilService);
     const event = {
         interaction: 'PREVIOUS'
