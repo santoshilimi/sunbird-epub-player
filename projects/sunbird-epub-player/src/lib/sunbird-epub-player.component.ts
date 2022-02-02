@@ -1,4 +1,4 @@
-import { EventEmitter, Component, Output, Input, OnInit, HostListener, 
+import { EventEmitter, Component, Output, Input, OnInit, HostListener,
   OnDestroy, ElementRef, ViewChild, AfterViewInit, Renderer2, OnChanges, SimpleChanges } from '@angular/core';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { PlayerConfig } from './sunbird-epub-player.interface';
@@ -9,6 +9,7 @@ import { UtilService } from './services/utilService/util.service';
 
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'sunbird-epub-player',
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss']
@@ -44,7 +45,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
     goto: true,
     navigation: true,
     zoom: false
-  }
+  };
 
   constructor(
     public viwerService: ViwerService,
@@ -73,20 +74,22 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
     // initializing services
     this.viwerService.initialize(this.playerConfig);
     this.epubPlayerService.initialize(this.playerConfig);
-    this.traceId = this.playerConfig.config['traceId'];
+    this.traceId = this.playerConfig?.config?.traceId;
 
 
     // checks online error while loading epub
     if (!navigator.onLine && !this.viwerService.isAvailableLocally) {
+      // tslint:disable-next-line:max-line-length
       this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex, errorMessage.internetConnectivity, this.traceId, new Error(errorMessage.internetConnectivity));
     }
 
     // checks content compatibility error
-    const contentCompabilityLevel = this.playerConfig.metadata['compatibilityLevel'];
+    const contentCompabilityLevel = this.playerConfig?.metadata?.compatibilityLevel;
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
-      if (!checkContentCompatible['isCompitable']) {
-        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex, errorCode.contentCompatibility, this.traceId, checkContentCompatible['error'])
+      if (!checkContentCompatible?.isCompitable) {
+        // tslint:disable-next-line:max-line-length
+        this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex, errorCode.contentCompatibility, this.traceId, checkContentCompatible.error);
       }
     }
 
@@ -182,6 +185,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   onEpubLoadFailed(error) {
     this.showContentError = true;
     this.viewState = this.fromConst.LOADING;
+    // tslint:disable-next-line:max-line-length
     this.viwerService.raiseExceptionLog(error.errorCode, this.currentPageIndex, error.errorMessage, this.traceId, new Error(error.errorMessage));
   }
 
@@ -234,7 +238,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
       data: {
         index: this.currentPageIndex
       }
-    }
+    };
     this.viwerService.raiseEndEvent(EndEvent);
     this.viwerService.isEndEventRaised = false;
     this.unlistenMouseEnter();

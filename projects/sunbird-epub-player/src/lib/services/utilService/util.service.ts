@@ -6,7 +6,7 @@ import { epubPlayerConstants } from '../../sunbird-epub.constant';
 })
 export class UtilService {
   fromConst = epubPlayerConstants;
-  
+
   constructor() { }
 
   public uniqueId(length = 32) {
@@ -27,11 +27,11 @@ export class UtilService {
   }
 
   getCurrentIndex(event , currentPageIndex) {
-    if (event['interaction'] === this.fromConst.NEXT) {
+    if (event?.interaction === this.fromConst.NEXT) {
       return currentPageIndex + 1;
     }
-    if (event['interaction'] === this.fromConst.PREVIOUS) {
-      return currentPageIndex - 1 ==  0 ? 1 : currentPageIndex -1;
+    if (event?.interaction === this.fromConst.PREVIOUS) {
+      return currentPageIndex - 1 ===  0 ? 1 : currentPageIndex - 1;
     }
   }
 
