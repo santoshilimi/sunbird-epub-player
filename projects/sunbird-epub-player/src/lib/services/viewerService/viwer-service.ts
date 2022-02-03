@@ -26,7 +26,7 @@ export class ViwerService {
   public metaData: any;
   public identifier: any;
   public artifactUrl: any;
-  public isAvailableLocally: boolean = false;
+  public isAvailableLocally = false;
   public isEndEventRaised = false;
   constructor(
     private utilService: UtilService,
@@ -43,7 +43,7 @@ export class ViwerService {
     this.artifactUrl = metadata.artifactUrl;
     this.isAvailableLocally = metadata.isAvailableLocally;
     if (this.isAvailableLocally) {
-      const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir)
+      const basePath = (metadata.streamingUrl) ? (metadata.streamingUrl) : (metadata.basePath || metadata.baseDir);
       this.src = `${basePath}/${metadata.artifactUrl}`;
     } else {
       this.src = metadata.streamingUrl || metadata.artifactUrl;
@@ -85,7 +85,7 @@ export class ViwerService {
     if (event.data) {
       this.currentIndex = event.data.index;
     }
-    const eventType = event.type? event.type : event;
+    const eventType = event.type ? event.type : event;
     const heartBeatEvent = {
       eid: 'HEARTBEAT',
       ver: this.version,
@@ -107,10 +107,10 @@ export class ViwerService {
   raiseEndEvent(event) {
     if (!this.isEndEventRaised) {
       this.currentIndex = event.data.index;
-      const percentage = event.data.percentage || 0
-      if(event.data.percentage) {
-        this.endPageSeen = true
-      } 
+      const percentage = event.data.percentage || 0;
+      if (event.data.percentage) {
+        this.endPageSeen = true;
+      }
       const duration = new Date().getTime() - this.epubPlayerStartTime;
       this.metaData.duration = duration;
       this.metaData.totalPages = this.totalNumberOfPages;
@@ -133,27 +133,27 @@ export class ViwerService {
   }
 
 
-  raiseExceptionLog(errorCode: string , pageIndex, errorType: string , traceId , stacktrace: Error ) {   
+  raiseExceptionLog(errorCode: string , pageIndex, errorType: string , traceId , stacktrace: Error ) {
     const exceptionLogEvent = {
-      eid: "ERROR",
+      eid: 'ERROR',
       edata: {
           err: errorCode,
           errtype: errorType,
           requestid: traceId || '',
-          stacktrace: stacktrace
+          stacktrace
       }
-    }
-    this.playerEvent.emit(exceptionLogEvent)
-    this.epubPlayerService.error(errorCode ,errorType, pageIndex , stacktrace);
+    };
+    this.playerEvent.emit(exceptionLogEvent);
+    this.epubPlayerService.error(errorCode , errorType, pageIndex , stacktrace);
   }
 
-  isValidEpubSrc(src) : Promise<Blob> {
+  isValidEpubSrc(src): Promise<Blob> {
     return new Promise(async (resolve , reject) => {
-      this.http.get(src, { responseType: 'blob' }).toPromise().then((res) =>{
+      this.http.get(src, { responseType: 'blob' }).toPromise().then((res) => {
         resolve(res);
       }).catch((error) => {
         reject(error);
-      })
-    })
+      });
+    });
   }
 }

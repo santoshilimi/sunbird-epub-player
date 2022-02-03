@@ -1,0 +1,37 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/sunbird-epub-player
+    docker:
+      - image: circleci/node:12.20.2-browsers
+    steps:
+      - checkout:
+          path: ~/sunbird-epub-player
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      - run:
+          environment:
+            NG_CLI_ANALYTICS: "ci"
+          command: npm install
+      - run: cd projects/sunbird-epub-player && sudo npm install
+      - run:
+          name: Node install
+          command: sudo npm install
+      - run:
+          name: Linting
+          command: npm run lint
+      - run:
+          name: Testing
+          command: npm run test
+      - run:
+          name: Install sonar scanner
+          command: 'sudo npm install -i -g sonarqube-scanner'
+      - run:
+          name: Sonar scanner
+          command: sonar-scanner -Dsonar.projectKey=project-sunbird_sunbird-epub-player -Dsonar.organization=project-sunbird -Dsonar.host.url=https://sonarcloud.io -Dsonar.language=ts -Dsonar.sources=projects/sunbird-epub-player/src -Dsonar.typescript.lcov.reportPaths=coverage/sunbird-epub-player/lcov.info
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build

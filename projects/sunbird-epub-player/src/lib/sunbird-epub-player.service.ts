@@ -53,12 +53,12 @@ export class EpubPlayerService {
           tags: context.tags,
           cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
           { id: this.playSessionId, type: 'PlaySession' },
-          {id: "2.0" , type: "PlayerVersion"}],
+          {id: '2.0' , type: 'PlayerVersion'}],
         },
         userOrgDetails: {}
       };
-      if(context.dispatcher) {
-        telemetryConfig.config.dispatcher = context.dispatcher
+      if (context.dispatcher) {
+        telemetryConfig.config.dispatcher = context.dispatcher;
       }
       CsTelemetryModule.instance.telemetryService.initTelemetry(telemetryConfig);
     }
@@ -107,7 +107,7 @@ export class EpubPlayerService {
             progress: percentage
           },
           {
-            totallength: (percentage ===100 ? curentPage: 1)
+            totallength: (percentage === 100 ? curentPage : 1)
           },
           {
             visitedlength: curentPage
@@ -152,7 +152,7 @@ export class EpubPlayerService {
         uid: this.uid,
         cdata: [{ id: this.contentSessionId, type: 'ContentSession' },
         { id: this.playSessionId, type: 'PlaySession' },
-        {id: "2.0" , type: "PlayerVersion"}],
+        {id: '2.0' , type: 'PlayerVersion'}],
         rollup: this.rollup || {}
       }
     });
