@@ -152,8 +152,8 @@ var playerConfig = {
 | `sid` | It is  `string` and User sessionid on portal or mobile | ```''```|
 | `did` | It is  `string` and Unique id to identify the device or browser| ```''```|
 | `uid` | It is  `string` and Current logged in user id| ```''```|
-| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.ekstep` |
-| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.ekstep', 'ver':'1.0'}```|
+| `channel` | It is `string` which defines channel identifier to know which channel is currently using.| `in.sunbird` |
+| `pdata` | It is an `object` which defines the producer information it should have identifier and version and canvas will log in the telemetry| ```{'id':'in.sunbird', 'ver':'1.0'}```|
 | `contextRollup` | It is an `object` which defines content roll up data | ```{}```|
 | `tags` | It is an `array` which defines the tag data | ```[]```|
 | `objectRollup` | It is an `object` which defines object rollup data | ```{}```|
