@@ -133,10 +133,10 @@ var playerConfig = {
   "config": { 
 	"traceId": "123456", // Defines trace id
     "sideMenu": { 
-      "showShare": true, // show/hide share button in side menu. default value is true
+      "showShare": true,    // show/hide share button in side menu. default value is true
       "showDownload": true, // show/hide download button in side menu. default value is true
       "showReplay": false, // show/hide replay button in side menu. default value is false
-      "showExit": true, // show/hide exit button in side menu. default value is true
+      "showExit": true,   // show/hide exit button in side menu. default value is true
     }
   },
   "metadata": {}, // Content metadata json object (from API response take -> response.result.content)
