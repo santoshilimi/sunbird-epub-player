@@ -186,6 +186,7 @@ npm install @project-sunbird/sb-styles --save
 npm install @project-sunbird/client-services --save
 npm install epubjs --save
 ```
+
 ## Step 2: Include the sb-styles and assets in angular.json
     "styles": [
     ...
