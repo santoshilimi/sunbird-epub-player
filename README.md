@@ -191,7 +191,7 @@ npm install epubjs --save
     "styles": [
     ...
     ...
-    "src/styles.css",
+    "src/global.scss",
     "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
     ],
     "scripts": [
@@ -270,6 +270,7 @@ Use the mock config in your component to send input to EPUB player
 Click to see the mock - [playerConfig](src/app/data.ts)
 
 ## Sample code
+
 Click to see the sample code - [sampleRepo](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app)
 
 ## Use as web components	
