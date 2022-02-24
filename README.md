@@ -207,13 +207,9 @@ Click to see the input data - [playerConfig](README.md#step-5-send-input-to-rend
 ## Sample code
 
 Click to see the sample code - [sampleCode](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app)
+<br /><br />
 
-
-
-
-
-
-## Use as web components	
+# Use as web components	
 
 Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
 
