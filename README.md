@@ -181,87 +181,17 @@ var playerConfig = {
 For existing apps, follow these steps to begin using.
 ## Step 1: Install the packages
 
-Click to see the mock - [istall](README.md#step-1-install-the-packages)
-
-```bash
-npm install @project-sunbird/sunbird-epub-player-v9 --save
-npm install @project-sunbird/sb-styles --save
-npm install @project-sunbird/client-services --save
-npm install epubjs --save
-```
+Click to see the steps - [IstallPackages](README.md#step-1-install-the-packages)
 
 ## Step 2: Include the sb-styles and assets in angular.json
-    "styles": [
-    ...
-    ...
-    "src/global.scss",
-    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
-    ],
-    "scripts": [
-    ...
-    ...
-    "node_modules/epubjs/dist/epub.js"
-    ]
 
-  Add following under architect.build.assets
-
-     {
-	    ...
-	    "build": {
-	    
-	    "builder": "@angular-devkit/build-angular:browser",
-	    
-	    "options": {
-		    ...
-		    ...
-    
-		    "assets": [
-		    
-			   ...
-			   ...
-			    
-			    {
-				    "glob": "**/*.*",
-				    "input": "./node_modules/@project-sunbird/sunbird-epub-player-v9/lib/assets/",
-				    "output": "/assets/"
-			    }
-		    
-		    ],
-    
-	    "styles": [
-	    
-	    ...
-	    
-	    "./node_modules/@project-sunbird/sb-styles/assets/_styles.scss"
-	    ],
-	    "scripts": [
-         ...
-         "node_modules/epubjs/dist/epub.js"
-         ]
-	    ...
-	    ...
-    
-    },
+Click to see the steps - [Import](README.md#step-2-include-the-styles-scripts-and-assets-in-angularjson) , but use 
+`src/global.scss` instead of  `src/styles.css` in styles.
 
 ## Step 3: Import the modules and components
-Import the NgModule where you want to use. Also create a [question-cursor-implementation.service](src/app/question-cursor-implementation.service.ts)
-       
-    import { SunbirdEpubPlayerModule } from '@project-sunbird/sunbird-epub-player-v9';
-    import { QuestionCursor } from '@project-sunbird/sunbird-quml-player-v9';
-    import { QuestionCursorImplementationService } from './question-cursor-implementation.service';
 
-    
-    @NgModule({
-	    ...
-	    
-	    imports: [SunbirdEpubPlayerModule],
-	    providers: [{ provide: QuestionCursor, useClass: QuestionCursorImplementationService }],
-	    
-	    ...
-    })
+Click to see the steps - [Import](README.md#step-3-import-the-modules-and-components)
 
-  
-    export class TestAppModule { }
 
 ## Step 3: Import in component       
     <sunbird-epub-player [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
@@ -269,8 +199,7 @@ Import the NgModule where you want to use. Also create a [question-cursor-implem
 
 ## Step 4: Send input to render EPUB player
 
-Use the mock config in your component to send input to EPUB player
-Click to see the mock - [playerConfig](src/app/data.ts)
+Click to see the mock - [playerConfig](README.md#step-5-send-input-to-render-epub-player)
 
 ## Sample code
 
