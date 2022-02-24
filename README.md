@@ -177,8 +177,7 @@ var playerConfig = {
 |--|--|--|------------------------------------------------------------------------------------------|---|--|
 | Epub Player | Can be used to render epub | sunbird-epub-player| *`<sunbird-epub-player [playerConfig]="playerConfig"><sunbird-epub-player>`*|playerConfig|playerEvent, telemetryEvent|
 
-
-
+<br /><br />
 
 # Mobile app integration steps 
 For existing apps, follow these steps to begin using.
@@ -196,11 +195,11 @@ Click to see the steps - [IncludeStyles](README.md#step-2-include-the-styles-scr
 
 Click to see the steps - [Import](README.md#step-3-import-the-modules-and-components)
 
-## Step 3: Import in component       
+## Step 4: Import in component       
     <sunbird-epub-player [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
       (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-epub-player>
 
-## Step 4: Send input to render EPUB player
+## Step 5: Send input to render EPUB player
 
 Click to see the input data - [playerConfig](README.md#step-5-send-input-to-render-epub-player)
 
