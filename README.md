@@ -180,6 +180,9 @@ var playerConfig = {
 # Mobile app integration steps 
 For existing apps, follow these steps to begin using.
 ## Step 1: Install the packages
+
+Click to see the mock - [istall](README.md#step-1-install-the-packages)
+
 ```bash
 npm install @project-sunbird/sunbird-epub-player-v9 --save
 npm install @project-sunbird/sb-styles --save
