@@ -20,5 +20,9 @@
     "sunbird epub player",
     "project-sunbird"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "devDependencies"
+  }
 }
