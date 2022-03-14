@@ -1,6 +1,6 @@
 {
   "name": "@project-sunbird/sunbird-epub-player-v9",
-  "version": "4.6.3",
+  "version": "4.8.0",
   "peerDependencies": {
     "@angular/common": ">=9.1.12",
     "@angular/core": ">=9.1.12",
@@ -20,5 +20,9 @@
     "sunbird epub player",
     "project-sunbird"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "schematics": "./schematics/collection.json",
+  "ng-add": {
+    "save": "devDependencies"
+  }
 }
