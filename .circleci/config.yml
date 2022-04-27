@@ -30,6 +30,16 @@ jobs:
       - run:
           name: Sonar scanner
           command: sonar-scanner -Dsonar.projectKey=project-sunbird_sunbird-epub-player -Dsonar.organization=project-sunbird -Dsonar.host.url=https://sonarcloud.io -Dsonar.language=ts -Dsonar.sources=projects/sunbird-epub-player/src -Dsonar.typescript.lcov.reportPaths=coverage/sunbird-epub-player/lcov.info
+      - run:
+          name: Publish to NPM
+          command: |
+            if [ -z $CIRCLE_PR_NUMBER ]; then
+              npm run build-lib && npm pack ./dist/sunbird-epub-player
+              echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+              npm publish project-sunbird-sunbird-epub-player-v9-*
+            else
+              npm run build-lib && npm pack ./dist/sunbird-epub-player
+            fi
 workflows:
   version: 2.1
   build_and_test:
