@@ -6,24 +6,24 @@ describe('UtilService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: UtilService = TestBed.get(UtilService);
+    const service: UtilService = TestBed.inject(UtilService);
     expect(service).toBeTruthy();
   });
 
   it('should return unique id', () => {
-    const service: UtilService = TestBed.get(UtilService);
+    const service: UtilService = TestBed.inject(UtilService);
     const id = service.uniqueId();
     expect(id).toBeDefined();
   });
 
   it('should return time spent text', () => {
-    const service: UtilService = TestBed.get(UtilService);
+    const service: UtilService = TestBed.inject(UtilService);
     const time = service.getTimeSpentText(10);
     expect(time).toBeDefined();
   });
 
   it('should return current index when next', () => {
-    const service: UtilService = TestBed.get(UtilService);
+    const service: UtilService = TestBed.inject(UtilService);
     const event = {
         interaction: 'NEXT'
       };
@@ -33,7 +33,7 @@ describe('UtilService', () => {
   });
 
   xit('should return current index when previous', () => {
-    const service: UtilService = TestBed.get(UtilService);
+    const service: UtilService = TestBed.inject(UtilService);
     const event = {
         interaction: 'PREVIOUS'
       };
