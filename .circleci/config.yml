@@ -2,8 +2,8 @@ version: 2.1
 jobs:
   build:
     working_directory: ~/sunbird-epub-player
-    docker:
-      - image: circleci/node:12.20.2-browsers
+    machine:
+      image: ubuntu-2004:202010-01
     steps:
       - checkout:
           path: ~/sunbird-epub-player
@@ -14,10 +14,10 @@ jobs:
           environment:
             NG_CLI_ANALYTICS: "ci"
           command: npm install
-      - run: cd projects/sunbird-epub-player && sudo npm install
+      - run: cd projects/sunbird-epub-player &&  npm install
       - run:
           name: Node install
-          command: sudo npm install
+          command:  npm install
       - run:
           name: Linting
           command: npm run lint
@@ -25,8 +25,18 @@ jobs:
           name: Testing
           command: npm run test
       - run:
+          name: Install  Node.js v14.20.0 with build in nvm tool
+          command: |
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm install v14 && nvm use v14 && nvm alias default v14
+            node -v
+      - run:
+          name: Alter Node version
+          command: 'node --version' 
+      - run:
           name: Install sonar scanner
-          command: 'sudo npm install -i -g sonarqube-scanner'
+          command: ' npm install -i -g sonarqube-scanner'
       - run:
           name: Sonar scanner
           command: cd ~/sunbird-epub-player && sonar-scanner 
