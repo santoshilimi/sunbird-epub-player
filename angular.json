@@ -13,7 +13,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "vendorSourceMap": true,
             "outputPath": "dist/epubLibraryDemo",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -36,7 +35,12 @@
             "scripts": [
               "./node_modules/epubjs/dist/epub.js",
               "node_modules/@project-sunbird/telemetry-sdk/index.js"
-            ]
+            ],
+            "sourceMap": {
+              "styles": true,
+              "scripts": true,
+              "vendor": true
+            }
           },
           "configurations": {
             "production": {

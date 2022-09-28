@@ -12,20 +12,20 @@ describe('ViewerService', () => {
   });
 
   xit('should be created', () => {
-    const service: ViwerService = TestBed.get(ViwerService);
+    const service: ViwerService = TestBed.inject(ViwerService);
     expect(service).toBeTruthy();
   });
 
   xit('should initialize player config', () => {
-    const service = TestBed.get(ViwerService);
+    const service = TestBed.inject(ViwerService);
     service.initialize(mockData.playerConfig);
     expect(service.src).toEqual(mockData.playerConfig.metadata.artifactUrl);
     expect(service.endPageSeen).toBeFalsy();
   });
 
   xit('should raise Start event ', () => {
-    const service = TestBed.get(ViwerService);
-    const sunbirdEpubPlayerService = TestBed.get(EpubPlayerService);
+    const service = TestBed.inject(ViwerService);
+    const sunbirdEpubPlayerService = TestBed.inject(EpubPlayerService);
     spyOn(sunbirdEpubPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdEpubPlayerService, 'start');
     spyOn(service.playerEvent, 'emit');
@@ -38,8 +38,8 @@ describe('ViewerService', () => {
   });
 
   xit('should raise End event ', () => {
-    const service = TestBed.get(ViwerService);
-    const sunbirdEpubPlayerService = TestBed.get(EpubPlayerService);
+    const service = TestBed.inject(ViwerService);
+    const sunbirdEpubPlayerService = TestBed.inject(EpubPlayerService);
     spyOn(sunbirdEpubPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdEpubPlayerService, 'end');
     spyOn(service.playerEvent, 'emit');
@@ -53,8 +53,8 @@ describe('ViewerService', () => {
   });
 
   xit('should raise interact event', () => {
-    const service = TestBed.get(ViwerService);
-    const sunbirdEpubPlayerService = TestBed.get(EpubPlayerService);
+    const service = TestBed.inject(ViwerService);
+    const sunbirdEpubPlayerService = TestBed.inject(EpubPlayerService);
     spyOn(sunbirdEpubPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdEpubPlayerService, 'interact').and.callThrough();
     sunbirdEpubPlayerService.initialize(mockData.playerConfig);
@@ -65,8 +65,8 @@ describe('ViewerService', () => {
   });
 
   xit('should raise impression event', () => {
-    const service = TestBed.get(ViwerService);
-    const sunbirdEpubPlayerService = TestBed.get(EpubPlayerService);
+    const service = TestBed.inject(ViwerService);
+    const sunbirdEpubPlayerService = TestBed.inject(EpubPlayerService);
     spyOn(sunbirdEpubPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdEpubPlayerService, 'impression').and.callThrough();
     sunbirdEpubPlayerService.initialize(mockData.playerConfig);
@@ -78,14 +78,13 @@ describe('ViewerService', () => {
 
 
   xit('should raise Error event', () => {
-    const service = TestBed.get(ViwerService);
-    const sunbirdEpubPlayerService = TestBed.get(EpubPlayerService);
+    const service = TestBed.inject(ViwerService);
+    const sunbirdEpubPlayerService = TestBed.inject(EpubPlayerService);
     spyOn(sunbirdEpubPlayerService, 'initialize').and.callThrough();
     spyOn(sunbirdEpubPlayerService, 'error');
     spyOn(service.playerEvent, 'emit');
     sunbirdEpubPlayerService.initialize(mockData.playerConfig);
     service.initialize(mockData.playerConfig);
-    service.raiseErrorEvent('');
     expect(service.playerEvent.emit).toHaveBeenCalled();
     expect(sunbirdEpubPlayerService.error).toHaveBeenCalled();
   });
