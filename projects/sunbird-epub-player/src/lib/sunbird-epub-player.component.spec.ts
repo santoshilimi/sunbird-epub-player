@@ -1,5 +1,5 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { mockData } from './services/viewerService/viwer-service.spec.data';
 
@@ -14,7 +14,7 @@ describe('EpubPlayerComponent', () => {
   let component: EpubPlayerComponent;
   let fixture: ComponentFixture<EpubPlayerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [EpubPlayerComponent],
       schemas: [NO_ERRORS_SCHEMA],

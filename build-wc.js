@@ -6,7 +6,6 @@ const build = async () => {
     "./dist/epub-player-wc/runtime.js",
     "./dist/epub-player-wc/polyfills-es5.js",
     "./dist/epub-player-wc/polyfills.js",
-    "./dist/epub-player-wc/styles.js",
     "./dist/epub-player-wc/vendor.js",
     "./dist/epub-player-wc/main.js",
   ];
@@ -17,6 +16,7 @@ const build = async () => {
   if (isAssetsAvailable) {
     await fs.copy("./dist/epub-player-wc/assets", "web-component/assets");
   }
+  await fs.copy("./dist/epub-player-wc/styles.css", "web-component/styles.css")
   console.log("Files concatenated successfully!!!");
 };
 build();
