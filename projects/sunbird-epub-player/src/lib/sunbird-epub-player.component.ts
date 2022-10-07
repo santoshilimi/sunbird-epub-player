@@ -203,7 +203,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
 
   sideBarEvents(event) {
     this.viwerService.raiseHeartBeatEvent(event, telemetryType.INTERACT);
-    if (event === 'DOWNLOAD') {
+    if (event.type === 'DOWNLOAD') {
       this.downloadEpub();
     }
   }
