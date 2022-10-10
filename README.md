@@ -219,6 +219,13 @@ Follow below-mentioned steps to use it in plain javascript project:
 	```javascript
 	<script type="text/javascript" src="sunbird-epub-player.js"></script>
 	```
+- Update below script in index.html file 
+	```javascript
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
+      integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	```
+  
 - Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/src/app/data.ts)
 
 - Create a custom html element: `sunbird-epub-player`
