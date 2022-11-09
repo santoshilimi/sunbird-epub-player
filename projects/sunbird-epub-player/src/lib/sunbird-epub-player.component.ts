@@ -34,6 +34,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
     showExit: false,
     showPrint: false
   };
+  public isInitialized = false;
   viewState = this.fromConst.LOADING;
   intervalRef: any;
   progress = 0;
@@ -63,6 +64,8 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   }
 
   async ngOnInit() {
+    this.isInitialized = true;
+    if (this.playerConfig) {
     if (typeof this.playerConfig === 'string') {
       try {
         this.playerConfig = JSON.parse(this.playerConfig);
@@ -70,7 +73,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
         console.error('Invalid playerConfig: ', error);
       }
     }
-
+  }
     // initializing services
     this.viwerService.initialize(this.playerConfig);
     this.epubPlayerService.initialize(this.playerConfig);
@@ -102,6 +105,10 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   ngOnChanges(changes: SimpleChanges) {
     if (changes.showFullScreen && !changes?.showFullScreen?.firstChange) {
       this.showFullScreen = changes.showFullScreen.currentValue;
+    }
+    if (changes.playerConfig.firstChange && this.isInitialized) {
+      // Calling for web component explicitly and life cycle works in different order
+      this.ngOnInit();
     }
   }
   ngAfterViewInit() {

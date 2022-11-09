@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA, SimpleChanges, SimpleChange } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ViwerService } from './services/viewerService/viwer-service';
 import { mockData } from './services/viewerService/viwer-service.spec.data';
@@ -6,6 +6,7 @@ import { mockData } from './services/viewerService/viwer-service.spec.data';
 import { EpubPlayerComponent } from './sunbird-epub-player.component';
 import { EpubPlayerService } from './sunbird-epub-player.service';
 import { epubPlayerConstants, telemetryType } from './sunbird-epub.constant';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 
 
@@ -17,6 +18,7 @@ describe('EpubPlayerComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [EpubPlayerComponent],
+      imports: [HttpClientTestingModule],
       schemas: [NO_ERRORS_SCHEMA],
       providers: [ViwerService, EpubPlayerService]
     })
@@ -139,5 +141,25 @@ describe('EpubPlayerComponent', () => {
     component.getEpubLoadingProgress();
     jasmine.clock().tick(11);
     expect(component.progress).toEqual(30);
+  });
+  it('should call ngOnChanges and call ngOnInit when isInitialized is true', () => {
+    component.isInitialized = true;
+    const changes: SimpleChanges = {
+      action: new SimpleChange('play', 'view', true),
+      playerConfig: new SimpleChange('play', 'view', true)
+    };
+    spyOn(component, 'ngOnInit');
+    component.ngOnChanges(changes);
+    expect(component.ngOnInit).toHaveBeenCalled();
+  });
+  it('should call ngOnChanges and should not call ngOnInit when isInitialized is false', () => {
+    component.isInitialized = false;
+    const changes: SimpleChanges = {
+      action: new SimpleChange('play', 'view', true),
+      playerConfig: new SimpleChange('play', 'view', true)
+    };
+    spyOn(component, 'ngOnInit');
+    component.ngOnChanges(changes);
+    expect(component.ngOnInit).not.toHaveBeenCalled();
   });
 });
