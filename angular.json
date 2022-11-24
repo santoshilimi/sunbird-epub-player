@@ -147,6 +147,15 @@
             "tsConfig": "projects/sunbird-epub-player/tsconfig.spec.json",
             "karmaConfig": "projects/sunbird-epub-player/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/sunbird-epub-player/**/*.ts",
+              "projects/sunbird-epub-player/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -269,12 +278,22 @@
               "devServerTarget": "epub-player-wc:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/epub-player-wc/**/*.ts",
+              "projects/epub-player-wc/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "defaultProject": "epubLibraryDemo",
   "cli": {
-    "analytics": "046d8ea0-5449-43cc-8765-5cac511860c3"
+    "analytics": "046d8ea0-5449-43cc-8765-5cac511860c3",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

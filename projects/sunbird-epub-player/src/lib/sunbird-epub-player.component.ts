@@ -9,7 +9,7 @@ import { UtilService } from './services/utilService/util.service';
 
 
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'sunbird-epub-player',
   templateUrl: './sunbird-epub-player.component.html',
   styleUrls: ['./sunbird-epub-player.component.scss']
@@ -82,7 +82,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
 
     // checks online error while loading epub
     if (!navigator.onLine && !this.viwerService.isAvailableLocally) {
-      // tslint:disable-next-line:max-line-length
+      // eslint-disable-next-line max-len
       this.viwerService.raiseExceptionLog(errorCode.internetConnectivity, this.currentPageIndex, errorMessage.internetConnectivity, this.traceId, new Error(errorMessage.internetConnectivity));
     }
 
@@ -91,7 +91,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
     if (contentCompabilityLevel) {
       const checkContentCompatible = this.errorService.checkContentCompatibility(contentCompabilityLevel);
       if (!checkContentCompatible?.isCompitable) {
-        // tslint:disable-next-line:max-line-length
+        // eslint-disable-next-line max-len
         this.viwerService.raiseExceptionLog(errorCode.contentCompatibility, this.currentPageIndex, errorCode.contentCompatibility, this.traceId, checkContentCompatible.error);
       }
     }
@@ -192,7 +192,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
   onEpubLoadFailed(error) {
     this.showContentError = true;
     this.viewState = this.fromConst.LOADING;
-    // tslint:disable-next-line:max-line-length
+    // eslint-disable-next-line max-len
     this.viwerService.raiseExceptionLog(error.errorCode, this.currentPageIndex, error.errorMessage, this.traceId, new Error(error.errorMessage));
   }
 
