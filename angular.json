@@ -113,19 +113,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -159,18 +146,6 @@
             "main": "projects/sunbird-epub-player/src/test.ts",
             "tsConfig": "projects/sunbird-epub-player/tsconfig.spec.json",
             "karmaConfig": "projects/sunbird-epub-player/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/sunbird-epub-player/tsconfig.lib.json",
-              "projects/sunbird-epub-player/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -281,19 +256,6 @@
               "projects/epub-player-wc/src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/epub-player-wc/tsconfig.app.json",
-              "projects/epub-player-wc/tsconfig.spec.json",
-              "projects/epub-player-wc/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {

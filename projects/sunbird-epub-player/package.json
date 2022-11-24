@@ -1,9 +1,9 @@
 {
   "name": "@project-sunbird/sunbird-epub-player-v9",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "peerDependencies": {
-    "@angular/common": ">=12.2.16",
-    "@angular/core": ">=12.2.16",
+    "@angular/common": ">=13.3.12",
+    "@angular/core": ">=13.3.12",
     "@project-sunbird/client-services": ">=3.4.8",
     "@project-sunbird/sb-styles": ">=0.0.7"
   },
