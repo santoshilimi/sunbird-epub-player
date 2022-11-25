@@ -291,9 +291,10 @@
       }
     }
   },
-  "defaultProject": "epubLibraryDemo",
   "cli": {
     "analytics": "046d8ea0-5449-43cc-8765-5cac511860c3",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
