@@ -8,8 +8,6 @@ Contains Epub player library components powered by angular. These components are
 
 Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
 
-Follow below-mentioned steps to use it in plain javascript project:
-
 - Insert [library](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/sunbird-epub-player.js) as below:
 	```javascript
 	<script type="text/javascript" src="sunbird-epub-player.js"></script>
