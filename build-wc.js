@@ -4,7 +4,6 @@ const concat = require("concat");
 const build = async () => {
   const files = [
     "./dist/epub-player-wc/runtime.js",
-    "./dist/epub-player-wc/polyfills-es5.js",
     "./dist/epub-player-wc/polyfills.js",
     "./dist/epub-player-wc/vendor.js",
     "./dist/epub-player-wc/main.js",

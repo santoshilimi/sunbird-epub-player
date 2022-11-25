@@ -14,10 +14,10 @@ describe('SunbirdPdfPlayerService', () => {
   it('should initialize player config', () => {
     const service = TestBed.inject(EpubPlayerService);
     service.initialize(mockData.playerConfig);
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     expect(service['playSessionId']).toBeDefined();
     expect(CsTelemetryModule.instance.isInitialised).toBeTruthy();
-    // tslint:disable-next-line:no-string-literal
+    // eslint-disable-next-line @typescript-eslint/dot-notation
     expect(service['telemetryObject']).toBeDefined();
   });
 

@@ -8,17 +8,16 @@ import { EpubViewerComponent } from '../../../sunbird-epub-player/src/lib/epub-v
 import { EpubPlayerComponent } from '../../../sunbird-epub-player/src/lib/sunbird-epub-player.component';
 
 @NgModule({
-  declarations: [
-    EpubPlayerComponent,
-    EpubViewerComponent
-  ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    SunbirdPlayerSdkModule,
-    HttpClientModule
-  ],
-  entryComponents: [EpubPlayerComponent]
+    declarations: [
+        EpubPlayerComponent,
+        EpubViewerComponent
+    ],
+    imports: [
+        BrowserModule,
+        CommonModule,
+        SunbirdPlayerSdkModule,
+        HttpClientModule
+    ]
 })
 export class AppModule implements DoBootstrap {
   constructor(private injector: Injector) { }

@@ -1,9 +1,85 @@
 # Epub player library for Sunbird platform!
 Contains Epub player library components powered by angular. These components are designed to be used in sunbird consumption platforms *(mobile app, web portal, offline desktop app)* to drive reusability, maintainability hence reducing the redundant development effort significantly.
 
-# Getting Started
-For help getting started with a new Angular app, check out the [Angular CLI](https://angular.io/cli).
-If you have an Angular ≥ 9 CLI project, you could simply use our schematics to add sunbird-epub-player library to it.
+# Getting Started with different integrations steps
+ The Epub player can be integrated as web component in plain javascript projects and as web component in angular apps and also as angular library in angular and mobile applications.
+
+# Use as web components	
+
+Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
+
+- Insert [library](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/sunbird-epub-player.js) as below:
+	```javascript
+	<script type="text/javascript" src="sunbird-epub-player.js"></script>
+	```
+- Update below script in index.html file 
+	```javascript
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
+      integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	```
+  
+- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/src/app/data.ts)
+
+- Create a custom html element: `sunbird-epub-player`
+	```javascript
+    const  epubElement = document.createElement('sunbird-epub-player');
+   ```
+
+- Pass data using `player-config`
+	```javascript
+	epubElement.setAttribute('player-config', JSON.stringify(playerConfig));
+	```
+
+	**Note:** Attribute name should be in kebab-case regardless of the actual Attribute name used in the Angular app. The value of the attribute should be in **string** type, as web-component does not accept any objects or arrays.
+
+- Listen for the output events: **playerEvent** and **telemetryEvent**
+
+	```javascript
+	epubElement.addEventListener('playerEvent', (event) => {
+		console.log("On playerEvent", event);
+	});
+	epubElement.addEventListener('telemetryEvent', (event) => {
+		console.log("On telemetryEvent", event);
+	});
+	```
+- Append this element to existing element
+	```javascript
+	const  myPlayer = document.getElementById("my-player");
+	myPlayer.appendChild(epubPlayerElement);
+	```
+- Refer demo [example](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/index.html)
+
+- To run the project, we can directly run index.html file or can use local server to run the project.
+
+- ![demo](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/epub-player-wc.png)
+
+# Use as Web component  in the Angular app
+
+- Copy the assets files from web component folder
+  [assets](https://github.com/project-sunbird/sunbird-epub-player/tree/release-5.3.0/web-component/assets) to assets folder
+
+- Create libs/sunbird-epub-player folder inside assets folder, and copy [sunbird-epub-player.js](https://github.com/project-sunbird/sunbird-epub-player/blob/release-5.3.0/web-component/sunbird-epub-player.js) and  [styles.css](https://github.com/project-sunbird/sunbird-epub-player/blob/release-5.3.0/web-component/styles.css). and Add/import these entries in angular json file inside scripts and styles respectively.
+
+- Import  CUSTOM_ELEMENTS_SCHEMA in app module
+
+	```javascript
+  import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+	```
+
+- Import  sunbird-epub-player in component
+    ```bash
+    <sunbird-epub-player  [playerConfig]="playerConfig" (playerEvent)="playerEvents($event)"
+    (telemetryEvent)="playerTelemetryEvents($event)"></sunbird-epub-player>
+    ```
+
+- Provide input to render EPUB player
+
+Use the mock config in your component to send input to EPUB player
+Click to see the mock - [playerConfig](https://github.com/project-sunbird/sunbird-epub-player/blob/release-5.3.0/src/app/data.ts)
+**Note:** : Send input config as string 
+
+# Use as Angular library in angular app
 
 ## Step 1: Installation
 
@@ -180,7 +256,10 @@ var playerConfig = {
 
 <br /><br />
 
-# Mobile app integration steps 
+# Use as Web component in Mobile app 
+For existing apps, follow these steps [steps](README.md#use-as-web-component--in-the-angular-app) to begin using.
+
+# Use as Angular library in Mobile app
 For existing apps, follow these steps to begin using.
 
 ## Step 1: Install the packages
@@ -208,55 +287,3 @@ Click to see the input data - [playerConfig](README.md#step-5-send-input-to-rend
 
 Click to see the sample code - [sampleCode](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app/blob/release-4.8.0/src/app/player/player.page.html)
 <br /><br />
-
-# Use as web components	
-
-Any web application can use this library as a web component. It accepts couple of inputs and triggers some events back to the application.
-
-Follow below-mentioned steps to use it in plain javascript project:
-
-- Insert [library](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/sunbird-epub-player.js) as below:
-	```javascript
-	<script type="text/javascript" src="sunbird-epub-player.js"></script>
-	```
-- Update below script in index.html file 
-	```javascript
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/reflect-metadata/0.1.13/Reflect.min.js"
-      integrity="sha512-jvbPH2TH5BSZumEfOJZn9IV+5bSwwN+qG4dvthYe3KCGC3/9HmxZ4phADbt9Pfcp+XSyyfc2vGZ/RMsSUZ9tbQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	```
-  
-- Get sample playerConfig from here: [playerConfig](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/src/app/data.ts)
-
-- Create a custom html element: `sunbird-epub-player`
-	```javascript
-    const  epubElement = document.createElement('sunbird-epub-player');
-   ```
-
-- Pass data using `player-config`
-	```javascript
-	epubElement.setAttribute('player-config', JSON.stringify(playerConfig));
-	```
-
-	**Note:** Attribute name should be in kebab-case regardless of the actual Attribute name used in the Angular app. The value of the attribute should be in **string** type, as web-component does not accept any objects or arrays.
-
-- Listen for the output events: **playerEvent** and **telemetryEvent**
-
-	```javascript
-	epubElement.addEventListener('playerEvent', (event) => {
-		console.log("On playerEvent", event);
-	});
-	epubElement.addEventListener('telemetryEvent', (event) => {
-		console.log("On telemetryEvent", event);
-	});
-	```
-- Append this element to existing element
-	```javascript
-	const  myPlayer = document.getElementById("my-player");
-	myPlayer.appendChild(epubPlayerElement);
-	```
-- Refer demo [example](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/index.html)
-
-- To run the project, we can directly run index.html file or can use local server to run the project.
-
-- ![demo](https://github.com/project-sunbird/sunbird-epub-player/blob/release-4.5.0/web-component/epub-player-wc.png)

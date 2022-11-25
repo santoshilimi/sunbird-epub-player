@@ -113,19 +113,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -162,14 +149,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/sunbird-epub-player/tsconfig.lib.json",
-              "projects/sunbird-epub-player/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/sunbird-epub-player/**/*.ts",
+              "projects/sunbird-epub-player/**/*.html"
             ]
           }
         }
@@ -283,19 +267,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/epub-player-wc/tsconfig.app.json",
-              "projects/epub-player-wc/tsconfig.spec.json",
-              "projects/epub-player-wc/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -307,12 +278,22 @@
               "devServerTarget": "epub-player-wc:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/epub-player-wc/**/*.ts",
+              "projects/epub-player-wc/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "defaultProject": "epubLibraryDemo",
   "cli": {
-    "analytics": "046d8ea0-5449-43cc-8765-5cac511860c3"
+    "analytics": "046d8ea0-5449-43cc-8765-5cac511860c3",
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }
