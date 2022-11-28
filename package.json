@@ -29,7 +29,6 @@
     "@angular/platform-browser": "14.2.12",
     "@angular/platform-browser-dynamic": "14.2.12",
     "@angular/router": "14.2.12",
-    "@babel/runtime": "^7.20.1",
     "@project-sunbird/client-services": "^3.4.8",
     "@project-sunbird/sb-styles": "0.0.7",
     "@project-sunbird/sunbird-player-sdk-v9": "^4.6.4",
