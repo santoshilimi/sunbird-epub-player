@@ -7,6 +7,7 @@ import {
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
+import 'reflect-metadata';
 
 declare const require: any;
 
