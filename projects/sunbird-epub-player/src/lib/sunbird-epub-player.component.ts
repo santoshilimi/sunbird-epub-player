@@ -73,13 +73,10 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
         console.error('Invalid playerConfig: ', error);
       }
     }
-  }
     // initializing services
     this.viwerService.initialize(this.playerConfig);
     this.epubPlayerService.initialize(this.playerConfig);
     this.traceId = this.playerConfig?.config?.traceId;
-
-
     // checks online error while loading epub
     if (!navigator.onLine && !this.viwerService.isAvailableLocally) {
       // eslint-disable-next-line max-len
@@ -99,7 +96,7 @@ export class EpubPlayerComponent implements OnInit, OnChanges, OnDestroy, AfterV
     this.showEpubViewer = true;
     this.sideMenuConfig = { ...this.sideMenuConfig, ...this.playerConfig.config.sideMenu };
     this.getEpubLoadingProgress();
-
+  }
   }
 
   ngOnChanges(changes: SimpleChanges) {
