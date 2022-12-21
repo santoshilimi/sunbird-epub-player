@@ -287,3 +287,4 @@ Click to see the input data - [playerConfig](README.md#step-5-send-input-to-rend
 
 Click to see the sample code - [sampleCode](https://github.com/Sunbird-Ed/SunbirdEd-mobile-app/blob/release-4.8.0/src/app/player/player.page.html)
 <br /><br />
+
